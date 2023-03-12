@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
@@ -11,6 +12,14 @@ public class TagController : ControllerBase
     public string GetTags()
     {
         return "This will be a list of tags";
+    }
+
+    [HttpGet]
+    [Route("TestAuth")]
+    [Authorize]
+    public string TestAuth()
+    {
+        return "You should see this only if you are authorized";
     }
 
 }
