@@ -1,7 +1,7 @@
 ﻿using API.Constants;
 using API.Dtos;
-using API.Extensions.UserExtensions;
 using Core.Entities;
+using Core.EntityExtensions.UserExtensions;
 using Core.Interfaces.ServiceInterfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

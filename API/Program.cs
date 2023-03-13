@@ -1,7 +1,9 @@
 using API.Extensions;
 using Core.Entities;
+using Core.Interfaces.ServiceInterfaces;
 using Infrastructure.Repositories;
 using Infrastructure.Repositories.SeedData;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -49,11 +51,12 @@ var services = scope.ServiceProvider;
 var context = services.GetRequiredService<DatabaseContext>();
 var logger = services.GetRequiredService<ILogger<Program>>();
 var userManager = services.GetRequiredService<UserManager<User>>();
-
+var tagManager = services.GetRequiredService<ITagService>();
 try
 {
     await context.Database.MigrateAsync();
     await UserSeed.SeedUsersAsync(userManager);
+    await TagSeed.SeedTagsAsync(tagManager);
 }
 
 catch (Exception ex)

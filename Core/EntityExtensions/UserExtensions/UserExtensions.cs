@@ -1,7 +1,7 @@
 ﻿using API.Dtos;
 using Core.Entities;
 
-namespace API.Extensions.UserExtensions;
+namespace Core.EntityExtensions.UserExtensions;
 
 public static class UserExtensions
 {
