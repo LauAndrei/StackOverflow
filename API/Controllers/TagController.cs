@@ -1,6 +1,4 @@
-﻿using Core.Constants;
-using Core.Interfaces.ServiceInterfaces;
-using Microsoft.AspNetCore.Authorization;
+﻿using Core.Interfaces.ServiceInterfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;

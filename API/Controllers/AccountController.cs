@@ -30,19 +30,13 @@ public class AccountController : ControllerBase
     public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
     {
         User user;
-        if (!string.IsNullOrWhiteSpace(loginDto.Email))
+        if (loginDto.UserNameOrEmail.Contains("@"))
         {
-            user = await _userManager.FindByEmailAsync(loginDto.Email);
-        }
-        else if (!string.IsNullOrWhiteSpace(loginDto.UserName))
-        {
-            user = await _userManager.FindByNameAsync(loginDto.UserName);
+            user = await _userManager.FindByEmailAsync(loginDto.UserNameOrEmail);
         }
         else
         {
-            throw new ArgumentNullException(
-                $"{nameof(loginDto.Email)} or {nameof(loginDto.UserName)} cannot be empty!"
-                );
+            user = await _userManager.FindByNameAsync(loginDto.UserNameOrEmail);
         }
 
         if (user == null)
@@ -56,7 +50,6 @@ public class AccountController : ControllerBase
             return Unauthorized(RESPONSE_CONSTANTS.USER.INCORRECT_CREDENTIALS);
         }
         
-        
         return user.ToUserDto(await _tokenService.CreateToken(user));
     }
 
@@ -64,6 +57,18 @@ public class AccountController : ControllerBase
     [Route("register")]
     public async Task<ActionResult<UserDto>> Register(RegisterDto register)
     {
+        var findUser = await _userManager.FindByEmailAsync(register.Email);
+        if (findUser is not null)
+        {
+            return BadRequest("Error: Email already in use");
+        }
+
+        findUser = await _userManager.FindByNameAsync(register.UserName);
+        if (findUser is not null)
+        {
+            return BadRequest("Error: Username already in use");
+        }
+        
         var user = register.ToUser();
 
         var result = await _userManager.CreateAsync(user, register.Password);

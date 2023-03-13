@@ -7,7 +7,7 @@ public static class UserExtensions
 {
     public static User ToUser(this RegisterDto registerDto)
     {
-        return new()
+        return new User
         {
             FirstName = registerDto.FirstName,
             LastName = registerDto.LastName,
@@ -19,7 +19,7 @@ public static class UserExtensions
 
     public static UserDto ToUserDto(this User user, string token)
     {
-        return new()
+        return new UserDto
         {
             Email = user.Email,
             UserName = user.UserName,

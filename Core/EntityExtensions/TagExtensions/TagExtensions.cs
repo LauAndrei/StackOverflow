@@ -9,6 +9,7 @@ public static class TagExtensions
     {
         return new Tag
         {
+            Id = tagDto.Id,
             Name = tagDto.Name.ToLower()
         };
     }

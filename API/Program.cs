@@ -1,9 +1,8 @@
-using API.Extensions;
+using API.Extensions.AppExtensions;
 using Core.Entities;
 using Core.Interfaces.ServiceInterfaces;
 using Infrastructure.Repositories;
 using Infrastructure.Repositories.SeedData;
-using Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,5 +1,4 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using System.Text;
+﻿using System.Text;
 using Core.Entities;
 using Core.Interfaces.ServiceInterfaces;
 using Infrastructure.Repositories;
@@ -8,7 +7,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 
-namespace API.Extensions;
+namespace API.Extensions.AppExtensions;
 
 public static class ApplicationServicesExtension
 {

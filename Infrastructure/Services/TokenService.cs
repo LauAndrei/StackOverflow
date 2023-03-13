@@ -24,8 +24,7 @@ public class TokenService : ITokenService
 
     public async Task<string> CreateToken(User user)
     {
-        // user can see the information inside this token, so
-        // we need to be careful what do we store here
+        // The application currently has only 2 types of user and a user can have only 1 role
         var userRoles = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
         
         var claims = new List<Claim>
