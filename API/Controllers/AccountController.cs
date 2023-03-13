@@ -1,5 +1,6 @@
 ﻿using API.Constants;
 using API.Dtos;
+using Core.Constants;
 using Core.Entities;
 using Core.EntityExtensions.UserExtensions;
 using Core.Interfaces.ServiceInterfaces;
@@ -15,7 +16,8 @@ public class AccountController : ControllerBase
     private readonly UserManager<User> _userManager;
     private readonly SignInManager<User> _signInManager;
     private readonly ITokenService _tokenService;
-
+    
+    
     public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, ITokenService tokenService)
     {
         _userManager = userManager;
@@ -54,7 +56,8 @@ public class AccountController : ControllerBase
             return Unauthorized(RESPONSE_CONSTANTS.USER.INCORRECT_CREDENTIALS);
         }
         
-        return user.ToUserDto(_tokenService.CreateToken(user));
+        
+        return user.ToUserDto(await _tokenService.CreateToken(user));
     }
 
     [HttpPost]
@@ -71,6 +74,13 @@ public class AccountController : ControllerBase
             return BadRequest("Error creating an account");
         }
 
-        return user.ToUserDto(_tokenService.CreateToken(user));
+        var result2 = await _userManager.AddToRoleAsync(user, ROLES_CONSTANTS.ROLES.STANDARD);
+        
+        if (!result2.Succeeded)
+        {
+            return BadRequest("Error assigning role");
+        }
+        
+        return user.ToUserDto(await _tokenService.CreateToken(user));
     }
 }

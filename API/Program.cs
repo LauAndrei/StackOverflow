@@ -52,11 +52,15 @@ var context = services.GetRequiredService<DatabaseContext>();
 var logger = services.GetRequiredService<ILogger<Program>>();
 var userManager = services.GetRequiredService<UserManager<User>>();
 var tagManager = services.GetRequiredService<ITagService>();
+var roleManager = services.GetRequiredService<RoleManager<IdentityRole<int>>>();
+
 try
 {
     await context.Database.MigrateAsync();
     await UserSeed.SeedUsersAsync(userManager);
     await TagSeed.SeedTagsAsync(tagManager);
+    await RoleSeed.SeedRolesAsync(roleManager);
+
 }
 
 catch (Exception ex)

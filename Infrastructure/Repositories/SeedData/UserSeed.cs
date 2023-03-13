@@ -1,4 +1,5 @@
-﻿using Core.Entities;
+﻿using Core.Constants;
+using Core.Entities;
 using Microsoft.AspNetCore.Identity;
 
 namespace Infrastructure.Repositories.SeedData;
@@ -17,8 +18,9 @@ public class UserSeed
                 UserName = "FirstUser",
                 
             };
-
+            
             await userManager.CreateAsync(user, "Password1!");
+            await userManager.AddToRoleAsync(user, ROLES_CONSTANTS.ROLES.STANDARD);
             
             var user2 = new User()
             {
@@ -30,6 +32,7 @@ public class UserSeed
             };
 
             await userManager.CreateAsync(user2, "Password1!");
+            await userManager.AddToRoleAsync(user2, ROLES_CONSTANTS.ROLES.MODERATOR);
         }
     }
 }

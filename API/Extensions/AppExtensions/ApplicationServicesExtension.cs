@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Text;
 using Core.Entities;
 using Core.Interfaces.ServiceInterfaces;
 using Infrastructure.Repositories;
@@ -18,7 +19,7 @@ public static class ApplicationServicesExtension
 
         services.AddScoped<ITokenService, TokenService>();
 
-        services.AddIdentityCore<User>(config =>
+        services.AddIdentity<User, IdentityRole<int>>(config =>
             {
                 config.Password.RequiredLength = 6;
                 config.Password.RequireNonAlphanumeric = false;
@@ -26,7 +27,12 @@ public static class ApplicationServicesExtension
             .AddEntityFrameworkStores<DatabaseContext>() //this creates the necessary tables to store the users
             .AddSignInManager<SignInManager<User>>();
 
-        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
             .AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters

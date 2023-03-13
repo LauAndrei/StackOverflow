@@ -1,4 +1,5 @@
-﻿using Core.Interfaces.ServiceInterfaces;
+﻿using Core.Constants;
+using Core.Interfaces.ServiceInterfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,13 +29,4 @@ public class TagController : ControllerBase
     {
         return await _tagService.CheckIfExistTags();
     }
-
-    [HttpGet]
-    [Route("TestAuth")]
-    [Authorize]
-    public string TestAuth()
-    {
-        return "You should see this only if you are authorized";
-    }
-
 }
