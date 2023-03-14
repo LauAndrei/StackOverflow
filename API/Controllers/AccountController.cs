@@ -3,6 +3,7 @@ using API.Dtos;
 using Core.Constants;
 using Core.Entities;
 using Core.EntityExtensions.UserExtensions;
+using Core.Exceptions;
 using Core.Interfaces.ServiceInterfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -60,20 +61,19 @@ public class AccountController : ControllerBase
         var findUser = await _userManager.FindByEmailAsync(register.Email);
         if (findUser is not null)
         {
-            return BadRequest("Error: Email already in use");
+            throw new EmailAlreadyInUseException();
         }
 
         findUser = await _userManager.FindByNameAsync(register.UserName);
         if (findUser is not null)
         {
-            return BadRequest("Error: Username already in use");
+            throw new UserNameAlreadyInUseException();
         }
         
         var user = register.ToUser();
 
         var result = await _userManager.CreateAsync(user, register.Password);
-
-        //TODO: Create some better exceptions
+        
         if (!result.Succeeded)
         {
             return BadRequest("Error creating an account");

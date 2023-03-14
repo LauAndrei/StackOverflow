@@ -14,7 +14,8 @@ public class RegisterDto
     public string UserName { get; set; }
     
     [Required]
-    [RegularExpression(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", ErrorMessage = "Invalid email format")]
+    [EmailAddress]
+    //[RegularExpression(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", ErrorMessage = "Invalid email format")]
     public string Email { get; set; }
     
     [Required]

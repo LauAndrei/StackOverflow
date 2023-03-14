@@ -19,12 +19,12 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
 
     public virtual EntityEntry<T> Add(T entity)
     {
-        return _context.Add(entity);
+        return _context.Set<T>().Add(entity);
     }
 
-    public virtual async Task AddAsync(T entity)
+    public virtual async Task<EntityEntry<T>> AddAsync(T entity)
     {
-        await _context.Set<T>().AddAsync(entity);
+        return await _context.Set<T>().AddAsync(entity);
     }
 
     public virtual void AddRange(IEnumerable<T> entities)
@@ -41,7 +41,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         _context.Set<T>().Remove(entity);
     }
-
+    
     public virtual async Task RemoveByIdAsync(int id)
     {
         var entity = await FindAsync(id);

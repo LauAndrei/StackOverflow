@@ -8,7 +8,7 @@ public interface IGenericRepository<T> where T : class
 
     EntityEntry<T> Add(T entity);
 
-    Task AddAsync(T entity);
+    Task<EntityEntry<T>> AddAsync(T entity);
 
     void AddRange(IEnumerable<T> entities);
 

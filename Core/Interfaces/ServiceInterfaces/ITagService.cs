@@ -7,7 +7,11 @@ public interface ITagService
 {
     public Task<List<TagDto>> GetAllTagsAsync();
 
-    public Task<bool> CreateTagAsync(TagDto tagDto);
+    public Task<Tag?> FindTagByName(string tagName);
+
+    public Task<int> CreateTagAsync(TagDto tagDto);
 
     public Task<bool> CheckIfExistTags();
+
+    public Task<bool> DeleteTagById(int id);
 }
