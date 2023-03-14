@@ -1,4 +1,5 @@
-﻿using Core.Interfaces.ServiceInterfaces;
+﻿using API.Dtos.TagDtos;
+using Core.Interfaces.ServiceInterfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -16,9 +17,9 @@ public class TagController : ControllerBase
     
     [HttpGet]
     [Route("GetAllTags")]
-    public string GetAllTags()
+    public async Task<List<TagDto>> GetAllTags()
     {
-        return "This will be a list of tags";
+        return await _tagService.GetAllTagsAsync();
     }
 
     [HttpGet]

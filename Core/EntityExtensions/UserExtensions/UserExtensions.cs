@@ -17,9 +17,9 @@ public static class UserExtensions
         };
     }
 
-    public static UserDto ToUserDto(this User user, string token)
+    public static LoggedInUserDto ToLoggedInUserDto(this User user, string token)
     {
-        return new UserDto
+        return new LoggedInUserDto
         {
             Email = user.Email,
             UserName = user.UserName,

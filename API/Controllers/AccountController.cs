@@ -27,10 +27,10 @@ public class AccountController : ControllerBase
 
     [HttpPost]
     [Route("login")]
-    public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
+    public async Task<ActionResult<LoggedInUserDto>> Login(LoginDto loginDto)
     {
         User user;
-        if (loginDto.UserNameOrEmail.Contains("@"))
+        if (loginDto.UserNameOrEmail.Contains('@'))
         {
             user = await _userManager.FindByEmailAsync(loginDto.UserNameOrEmail);
         }
@@ -50,12 +50,12 @@ public class AccountController : ControllerBase
             return Unauthorized(RESPONSE_CONSTANTS.USER.INCORRECT_CREDENTIALS);
         }
         
-        return user.ToUserDto(await _tokenService.CreateToken(user));
+        return user.ToLoggedInUserDto(await _tokenService.CreateToken(user));
     }
 
     [HttpPost]
     [Route("register")]
-    public async Task<ActionResult<UserDto>> Register(RegisterDto register)
+    public async Task<ActionResult<LoggedInUserDto>> Register(RegisterDto register)
     {
         var findUser = await _userManager.FindByEmailAsync(register.Email);
         if (findUser is not null)
@@ -86,6 +86,6 @@ public class AccountController : ControllerBase
             return BadRequest("Error assigning role");
         }
         
-        return user.ToUserDto(await _tokenService.CreateToken(user));
+        return user.ToLoggedInUserDto(await _tokenService.CreateToken(user));
     }
 }

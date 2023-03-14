@@ -5,7 +5,7 @@ namespace Core.Interfaces.ServiceInterfaces;
 
 public interface ITagService
 {
-    public Task<List<Tag>> GetAllTagsAsync();
+    public Task<List<TagDto>> GetAllTagsAsync();
 
     public Task<bool> CreateTagAsync(TagDto tagDto);
 

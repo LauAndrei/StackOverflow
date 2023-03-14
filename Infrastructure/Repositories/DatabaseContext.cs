@@ -13,4 +13,8 @@ public class DatabaseContext : IdentityDbContext<User, IdentityRole<int>, int>
 
     private DbSet<Tag> Tags { get; set; }
     private DbSet<User> Users { get; set; }
+    private DbSet<Question> Questions { get; set; }
+    private DbSet<Answer> Answers { get; set; }
+    public DbSet<Vote> Votes { get; set; }
+    public DbSet<QuestionTag> QuestionTags { get; set; }
 }

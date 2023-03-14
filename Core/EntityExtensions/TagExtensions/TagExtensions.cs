@@ -21,4 +21,13 @@ public static class TagExtensions
             Name = tagName.ToLower()
         };
     }
+
+    public static TagDto ToTagDto(this Tag tag)
+    {
+        return new TagDto
+        {
+            Id = tag.Id,
+            Name = tag.Name
+        };
+    }
 }
