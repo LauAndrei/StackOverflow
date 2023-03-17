@@ -27,4 +27,14 @@ public static class UserExtensions
             Token = token
         };
     }
+
+    public static UserDto ToUserDto(this User user)
+    {
+        return new UserDto
+        {
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Score = user.Score
+        };
+    }
 }

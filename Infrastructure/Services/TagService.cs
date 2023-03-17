@@ -23,6 +23,13 @@ public class TagService : ITagService
             .ToListAsync();
     }
 
+    public async Task<TagDto?> GetTagById(int tagId)
+    {
+        return await _tagRepository.GetAll()
+            .Select(t => t.ToTagDto())
+            .FirstOrDefaultAsync();
+    }
+
     public async Task<Tag?> FindTagByName(string tagName)
     {
         return await _tagRepository.GetAll()
@@ -52,8 +59,8 @@ public class TagService : ITagService
     }
 
     /// <summary>
-    /// Checks if the tag repository is not empty (if there is any tag)
-    /// This method is used only for seeding tags
+    ///     Checks if the tag repository is not empty (if there is any tag)
+    ///     This method is used only for seeding tags
     /// </summary>
     /// <returns>
     ///     A bool value - True if exists at least a tag, False otherwise

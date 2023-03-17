@@ -5,8 +5,10 @@ using Core.Entities;
 using Core.EntityExtensions.UserExtensions;
 using Core.Exceptions;
 using Core.Interfaces.ServiceInterfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers;
 
@@ -87,5 +89,13 @@ public class AccountController : ControllerBase
         }
         
         return user.ToLoggedInUserDto(await _tokenService.CreateToken(user));
+    }
+
+    [HttpGet]
+    [Route("GetAllUsers")]
+    [Authorize(Roles = ROLES_CONSTANTS.ROLES.MODERATOR)]
+    public async Task<List<UserDto>> GetAllUsers()
+    {
+       return await _userManager.Users.Select(u => u.ToUserDto()).ToListAsync();
     }
 }

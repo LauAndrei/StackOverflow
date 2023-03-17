@@ -8,6 +8,7 @@ namespace API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class TagController : ControllerBase
 {
     private readonly ITagService _tagService;
@@ -31,6 +32,13 @@ public class TagController : ControllerBase
         return await _tagService.CheckIfExistTags();
     }
 
+    [HttpGet]
+    [Route("GetTagById/{tagId:int}")]
+    public async Task<TagDto> GetTagById(int tagId)
+    {
+        return await _tagService.GetTagById(tagId);
+    }
+
     [HttpPost]
     [Route("CreateTag")]
     public async Task<int> CreateTag(TagDto tagDto)
@@ -39,15 +47,10 @@ public class TagController : ControllerBase
     }
 
     [HttpDelete]
-    [Route("DeleteTagByName")]
+    [Route("DeleteTagById/{tagId:int}")]
     [Authorize(Roles = ROLES_CONSTANTS.ROLES.MODERATOR)]
-    public async Task<bool> DeleteTagByName(TagDto tagDto)
+    public async Task<bool> DeleteTagById(int tagId)
     {
-        var foundTag = await _tagService.FindTagByName(tagDto.Name.ToLower());
-        if (foundTag is null)
-        {
-            throw new Exception($"Tag with name {tagDto.Name} does not exist!");
-        }
-        return await _tagService.DeleteTagById(foundTag.Id);
+        return await _tagService.DeleteTagById(tagId);
     }
 }

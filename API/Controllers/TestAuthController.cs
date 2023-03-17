@@ -1,4 +1,7 @@
-﻿using Core.Constants;
+﻿using System.Security.Claims;
+using API.Extensions.ClaimsExtensions;
+using Core.Constants;
+using Core.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,5 +40,19 @@ public class TestAuthController : ControllerBase
    public string TestAuthModerator()
    {
       return "You should see this only if you are authenticated as moderator";
+   }
+   
+   [HttpGet]
+   [Route("GetLoggedInUserId")]
+   public int GetLoggedInUserId()
+   {
+      return User.GetUserId();
+   }
+
+   [HttpGet]
+   [Route("CheckIfUserIsAuth")]
+   public bool CheckIfUserIsAuth()
+   {
+      return HttpContext.User.Identity.IsAuthenticated;
    }
 }
