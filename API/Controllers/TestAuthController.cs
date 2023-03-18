@@ -1,7 +1,5 @@
-﻿using System.Security.Claims;
-using API.Extensions.ClaimsExtensions;
+﻿using API.Extensions.ClaimsExtensions;
 using Core.Constants;
-using Core.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

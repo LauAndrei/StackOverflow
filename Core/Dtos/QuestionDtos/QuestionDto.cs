@@ -6,6 +6,8 @@ public class QuestionDto
 
     public string AuthorUsername { get; set; } = null!;
 
+    public string Title { get; set; } = null!;
+    
     public string Text { get; set; } = null!;
 
     public string? PictureUrl { get; set; }

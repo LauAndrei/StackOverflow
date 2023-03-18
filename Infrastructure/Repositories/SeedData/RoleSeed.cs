@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Infrastructure.Repositories.SeedData;
 
-public class RoleSeed
+public static class RoleSeed
 {
     public static async Task SeedRolesAsync(RoleManager<IdentityRole<int>> roleManager)
     {

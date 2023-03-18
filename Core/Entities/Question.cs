@@ -2,6 +2,8 @@
 
 public class Question : BaseEntity
 {
+    public string Title { get; set; }
+    
     public string Text { get; set; } = null!;
     
     public User? Author { get; set; }

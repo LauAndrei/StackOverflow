@@ -7,7 +7,7 @@ public interface ITagService
 {
     public Task<List<TagDto>> GetAllTagsAsync();
 
-    public Task<TagDto> GetTagById(int tagId);
+    public Task<TagDto?> GetTagById(int tagId);
 
     public Task<Tag?> FindTagByName(string tagName);
 

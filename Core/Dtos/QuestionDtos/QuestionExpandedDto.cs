@@ -5,6 +5,8 @@ namespace Core.Dtos.QuestionDtos;
 
 public class QuestionExpandedDto
 {
+    public string Title { get; set; } = null!;
+    
     public string Text { get; set; } = null!;
 
     public string AuthorUsername { get; set; } = null!;

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Infrastructure.Repositories.SeedData;
 
-public class UserSeed
+public static class UserSeed
 {
     public static async Task SeedUsersAsync(UserManager<User> userManager)
     {

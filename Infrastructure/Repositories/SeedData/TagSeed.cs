@@ -3,11 +3,11 @@ using Core.Interfaces.ServiceInterfaces;
 
 namespace Infrastructure.Repositories.SeedData;
 
-public class TagSeed
+public static class TagSeed
 {
     public static async Task SeedTagsAsync(ITagService tagService)
     {
-        List<string> tagNames = new List<string>() { "html", "css", "javascript" };
+        var tagNames = new List<string>() { "html", "css", "javascript" };
         
         if (!await tagService.CheckIfExistTags())
         {

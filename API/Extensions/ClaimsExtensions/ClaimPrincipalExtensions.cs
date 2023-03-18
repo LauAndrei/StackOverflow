@@ -5,7 +5,7 @@ namespace API.Extensions.ClaimsExtensions;
 
 public static class ClaimPrincipalExtensions
 {
-    public static int GetUserId(this System.Security.Claims.ClaimsPrincipal principal)
+    public static int GetUserId(this ClaimsPrincipal principal)
     {
         if (principal == null)
             throw new ArgumentNullException(nameof(principal));

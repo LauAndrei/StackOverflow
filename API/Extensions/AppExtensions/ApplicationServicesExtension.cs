@@ -18,6 +18,9 @@ public static class ApplicationServicesExtension
 
         services.AddScoped<ITokenService, TokenService>();
 
+        services.AddScoped<QuestionRepository, QuestionRepository>();
+        services.AddScoped<IQuestionService, QuestionService>();
+
         services.AddIdentity<User, IdentityRole<int>>(config =>
             {
                 config.Password.RequiredLength = 6;
