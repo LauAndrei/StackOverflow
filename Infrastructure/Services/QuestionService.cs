@@ -1,26 +1,24 @@
 ﻿using Core.Dtos.QuestionDtos;
 using Core.EntityExtensions.QuestionExtensions;
 using Core.Exceptions;
+using Core.Interfaces.RepositoryInterfaces;
 using Core.Interfaces.ServiceInterfaces;
-using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Services;
 
 public class QuestionService : IQuestionService
 {
-    private readonly QuestionRepository _questionRepository;
-    private readonly QuestionTagRepository _questionTagRepository;
-    
-    public QuestionService(QuestionRepository questionRepository, QuestionTagRepository questionTagRepository)
+    private readonly IUnitOfWork _unitOfWork;
+
+    public QuestionService(IUnitOfWork unitOfWork)
     {
-        _questionRepository = questionRepository;
-        _questionTagRepository = questionTagRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<List<QuestionDto>> GetAllQuestions()
     {
-        return await _questionRepository.GetAll()
+        return await _unitOfWork.QuestionRepository.GetAll()
             .Include(q => q.Author)
             .Select(q => q.ToQuestionDto())
             .ToListAsync();
@@ -28,7 +26,7 @@ public class QuestionService : IQuestionService
 
     public async Task<bool> CheckUserIsQuestionsAuthor(int authorId, int questionId)
     {
-        var questionsAuthorId = await _questionRepository.GetAll()
+        var questionsAuthorId = await _unitOfWork.QuestionRepository.GetAll()
             .AsNoTracking()
             .Where(q => q.Id == questionId)
             .Select(q => q.AuthorId)
@@ -39,7 +37,7 @@ public class QuestionService : IQuestionService
 
     public async Task<QuestionExpandedDto> GetQuestionFullInfo(int id)
     {
-        return await _questionRepository.GetAll()
+        return await _unitOfWork.QuestionRepository.GetAll()
             .Include(q => q.Author)
             .Include(q => q.Answers)
                 .ThenInclude(a => a.Author)
@@ -53,7 +51,7 @@ public class QuestionService : IQuestionService
     //TODO: Fix a bug - tags need to be removed before updating 
     public async Task<bool> UpdateQuestion(PostQuestionDto question)
     {
-        var existingQuestion = await _questionRepository.GetAll()
+        var existingQuestion = await _unitOfWork.QuestionRepository.GetAll()
                                     .AsNoTracking()
                                     .Include(q => q.Answers)
                                     .Include(q => q.Votes)
@@ -68,28 +66,28 @@ public class QuestionService : IQuestionService
 
         var updatedQuestion = question.ToQuestion(existingQuestion);
         
-        //_questionTagRepository.RemoveRange(existingQuestion.Tags);
+        //_unitOfWork.QuestionTagRepository.RemoveRange(existingQuestion.Tags);
         
-        _questionRepository.Update(updatedQuestion);
+        _unitOfWork.QuestionRepository.Update(updatedQuestion);
 
-        return await _questionRepository.SaveChangesAsync();
+        return await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task<int> PostQuestion(PostQuestionDto newQuestion, int authorId)
     {
         var questionToAdd = newQuestion.ToQuestion(authorId);
         
-        var questionAdded = (await _questionRepository.AddAsync(questionToAdd)).Entity;
+        var questionAdded = (await _unitOfWork.QuestionRepository.AddAsync(questionToAdd)).Entity;
         
-        await _questionRepository.SaveChangesAsync();
+        await _unitOfWork.SaveChangesAsync();
 
         return questionAdded.Id;
     }
 
     public async Task<bool> DeleteQuestion(int questionId)
     {
-        await _questionRepository.RemoveByIdAsync(questionId);
+        await _unitOfWork.QuestionRepository.RemoveByIdAsync(questionId);
 
-        return await _questionRepository.SaveChangesAsync();
+        return await _unitOfWork.SaveChangesAsync();
     }
 }

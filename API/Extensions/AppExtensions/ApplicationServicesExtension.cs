@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using Core.Entities;
+using Core.Interfaces.RepositoryInterfaces;
 using Core.Interfaces.ServiceInterfaces;
 using Infrastructure.Repositories;
 using Infrastructure.Services;
@@ -13,16 +14,17 @@ public static class ApplicationServicesExtension
 {
     public static IServiceCollection AddApplicationServicesAndRepositories(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddScoped<TagRepository,TagRepository>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        //services.AddScoped<TagRepository,TagRepository>();
         services.AddScoped<ITagService, TagService>();
 
         services.AddScoped<ITokenService, TokenService>();
         
-        services.AddScoped<QuestionRepository, QuestionRepository>();
-        services.AddScoped<QuestionTagRepository, QuestionTagRepository>();
+        //services.AddScoped<QuestionRepository, QuestionRepository>();
+        //services.AddScoped<QuestionTagRepository, QuestionTagRepository>();
         services.AddScoped<IQuestionService, QuestionService>();
 
-        services.AddScoped<AnswerRepository, AnswerRepository>();
+        //services.AddScoped<AnswerRepository, AnswerRepository>();
         services.AddScoped<IAnswerService, AnswerService>();
 
         services.AddIdentity<User, IdentityRole<int>>(config =>

@@ -1,6 +1,7 @@
 ﻿using Core.Dtos.TagDtos;
 using Core.Entities;
 using Core.EntityExtensions.TagExtensions;
+using Core.Interfaces.RepositoryInterfaces;
 using Core.Interfaces.ServiceInterfaces;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -9,30 +10,30 @@ namespace Infrastructure.Services;
 
 public class TagService : ITagService
 {
-    private readonly TagRepository _tagRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public TagService(TagRepository tagRepository)
+    public TagService(IUnitOfWork unitOfWork)
     {
-        _tagRepository = tagRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<List<TagDto>> GetAllTagsAsync()
     {
-        return await _tagRepository.GetAll()
+        return await _unitOfWork.TagRepository.GetAll()
             .Select(t => t.ToTagDto())
             .ToListAsync();
     }
 
     public async Task<TagDto?> GetTagById(int tagId)
     {
-        return await _tagRepository.GetAll()
+        return await _unitOfWork.TagRepository.GetAll()
             .Select(t => t.ToTagDto())
             .FirstOrDefaultAsync();
     }
 
     public async Task<Tag?> FindTagByName(string tagName)
     {
-        return await _tagRepository.GetAll()
+        return await _unitOfWork.TagRepository.GetAll()
             .AsNoTracking()
             .Where(tag => tag.Name == tagName)
             .FirstOrDefaultAsync();
@@ -49,8 +50,9 @@ public class TagService : ITagService
     /// </returns>
     public async Task<int> CreateTagAsync(TagDto tag)
     {
-        var newTag = await _tagRepository.AddAsync(tag.ToTag());
-        if (!await _tagRepository.SaveChangesAsync())
+        var newTag = await _unitOfWork.TagRepository.AddAsync(tag.ToTag());
+
+        if (await _unitOfWork.SaveChangesAsync())
         {
             return -1;
         }
@@ -67,14 +69,14 @@ public class TagService : ITagService
     /// </returns>
     public async Task<bool> CheckIfExistTags()
     {
-       var firstTag = await _tagRepository.GetAll().FirstOrDefaultAsync();
+       var firstTag = await _unitOfWork.TagRepository.GetAll().FirstOrDefaultAsync();
        return firstTag is not null;
     }
 
     public async Task<bool> DeleteTagById(int tagId)
     {
-        await _tagRepository.RemoveByIdAsync(tagId);
-        return await _tagRepository.SaveChangesAsync();
+        await _unitOfWork.TagRepository.RemoveByIdAsync(tagId);
+        return await _unitOfWork.SaveChangesAsync();
     }
     
 }
