@@ -15,16 +15,13 @@ public static class ApplicationServicesExtension
     public static IServiceCollection AddApplicationServicesAndRepositories(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-        //services.AddScoped<TagRepository,TagRepository>();
+        
         services.AddScoped<ITagService, TagService>();
 
         services.AddScoped<ITokenService, TokenService>();
         
-        //services.AddScoped<QuestionRepository, QuestionRepository>();
-        //services.AddScoped<QuestionTagRepository, QuestionTagRepository>();
         services.AddScoped<IQuestionService, QuestionService>();
-
-        //services.AddScoped<AnswerRepository, AnswerRepository>();
+        
         services.AddScoped<IAnswerService, AnswerService>();
 
         services.AddIdentity<User, IdentityRole<int>>(config =>

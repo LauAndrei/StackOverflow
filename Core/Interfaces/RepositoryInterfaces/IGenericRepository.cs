@@ -23,6 +23,4 @@ public interface IGenericRepository<T> where T : class
     Task<T?> FindAsync(int id);
 
     void Update(T entity);
-
-    Task<bool> SaveChangesAsync();
 }
