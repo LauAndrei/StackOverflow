@@ -1,5 +1,5 @@
 ﻿using System.Security.Claims;
-using API.Constants;
+using Core.Constants;
 
 namespace API.Extensions.ClaimsExtensions;
 

@@ -20,7 +20,7 @@ public interface IGenericRepository<T> where T : class
 
     void RemoveRange(IEnumerable<T> entities);
 
-    Task<T> FindAsync(int id);
+    Task<T?> FindAsync(int id);
 
     void Update(T entity);
 

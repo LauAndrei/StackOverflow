@@ -1,4 +1,4 @@
-﻿namespace API.Dtos.TagDtos;
+﻿namespace Core.Dtos.TagDtos;
 
 public class TagDto
 {

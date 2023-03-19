@@ -1,6 +1,5 @@
-﻿using API.Constants;
-using API.Dtos;
-using Core.Constants;
+﻿using Core.Constants;
+using Core.Dtos.UserDtos;
 using Core.Entities;
 using Core.EntityExtensions.UserExtensions;
 using Core.Exceptions;

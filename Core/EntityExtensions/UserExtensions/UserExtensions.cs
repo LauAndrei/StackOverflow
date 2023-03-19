@@ -1,4 +1,4 @@
-﻿using API.Dtos;
+﻿using Core.Dtos.UserDtos;
 using Core.Entities;
 
 namespace Core.EntityExtensions.UserExtensions;

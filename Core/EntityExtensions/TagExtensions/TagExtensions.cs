@@ -1,4 +1,4 @@
-﻿using API.Dtos.TagDtos;
+﻿using Core.Dtos.TagDtos;
 using Core.Entities;
 
 namespace Core.EntityExtensions.TagExtensions;

@@ -53,7 +53,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         _context.Set<T>().RemoveRange(entities);
     }
 
-    public async Task<T> FindAsync(int id)
+    public async Task<T?> FindAsync(int id)
     {
         return await _context.Set<T>().FindAsync(id);
     }

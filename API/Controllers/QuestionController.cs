@@ -32,7 +32,7 @@ namespace API.Controllers
         ///     A list of questions
         /// </returns>
         [HttpGet]
-        [Route("posts")]
+        [Route("GetAllQuestions")]
         public async Task<List<QuestionDto>> GetAllQuestions()
         {
             return await _questionService.GetAllQuestions();
@@ -47,7 +47,7 @@ namespace API.Controllers
         /// </param>
         /// <returns>An object containing all the necessary details of the question, including answers</returns>
         [HttpGet]
-        [Route("post-details/{id:int}")]
+        [Route("QuestionDetails/{id:int}")]
         public async Task<QuestionExpandedDto> GetQuestionFullInfo(int id)
         {
             return await _questionService.GetQuestionFullInfo(id);
@@ -66,17 +66,47 @@ namespace API.Controllers
         /// </returns>
         /// <exception cref="ArgumentNullException"></exception>
         [HttpPost]
-        [Route("post")]
+        [Route("PostQuestion")]
         public async Task<int> PostQuestion(PostQuestionDto newQuestion)
         {
             if (newQuestion is null)
             {
                 throw new ArgumentNullException(nameof(newQuestion));
             }
+
+            newQuestion.Id = 0;
             
             var authorId = User.GetUserId();
 
             return await _questionService.PostQuestion(newQuestion, authorId);
+        }
+
+        [HttpPut]
+        [Route("UpdateQuestion")]
+        public async Task<ActionResult<bool>> UpdateQuestion(PostQuestionDto updatedQuestion)
+        {
+            if (updatedQuestion is null)
+            {
+                throw new ArgumentNullException(nameof(updatedQuestion));
+            }
+
+            var userId = User.GetUserId();
+
+            if (await _questionService.CheckUserIsQuestionsAuthor(userId, updatedQuestion.Id))
+            {
+                return await _questionService.UpdateQuestion(updatedQuestion);
+            }
+            
+            var user = await _userManager.Users.AsNoTracking().Where(u => u.Id == userId).FirstAsync();
+                
+            var isModerator = await _userManager.IsInRoleAsync(user,ROLES_CONSTANTS.ROLES.MODERATOR);
+
+            if (isModerator)
+            {
+                return await _questionService.UpdateQuestion(updatedQuestion);
+            }
+
+            return Unauthorized(RESPONSE_CONSTANTS.ERROR.UNAUTHORIZED);
         }
 
         /// <summary>
@@ -92,7 +122,7 @@ namespace API.Controllers
         ///     A boolean indicating if the operation was successfully or not, or Unauthorized
         /// </returns>
         [HttpDelete]
-        [Route("delete/{id:int}")]
+        [Route("DeleteQuestion/{id:int}")]
         public async Task<ActionResult<bool>> DeleteQuestion(int id)
         {
             var userId = User.GetUserId();
@@ -111,7 +141,7 @@ namespace API.Controllers
                 return await _questionService.DeleteQuestion(id);
             }
 
-            return Unauthorized();
+            return Unauthorized(RESPONSE_CONSTANTS.ERROR.UNAUTHORIZED);
         }
     }
 }

@@ -1,10 +1,12 @@
-﻿using API.Dtos.TagDtos;
+﻿using Core.Dtos.TagDtos;
 using Microsoft.Build.Framework;
 
 namespace Core.Dtos.QuestionDtos;
 
 public class PostQuestionDto
 {
+    public int Id { get; set; }
+    
     [Required]
     public string Title { get; set; }
     

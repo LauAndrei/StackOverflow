@@ -1,5 +1,5 @@
-﻿using API.Dtos.TagDtos;
-using Core.Dtos.AnswerDtos;
+﻿using Core.Dtos.AnswerDtos;
+using Core.Dtos.TagDtos;
 
 namespace Core.Dtos.QuestionDtos;
 

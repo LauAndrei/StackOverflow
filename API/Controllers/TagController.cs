@@ -1,5 +1,5 @@
-﻿using API.Dtos.TagDtos;
-using Core.Constants;
+﻿using Core.Constants;
+using Core.Dtos.TagDtos;
 using Core.Interfaces.ServiceInterfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

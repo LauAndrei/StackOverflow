@@ -38,15 +38,16 @@ public static class QuestionExtensions
             DatePosted = question.DatePosted,
             LastModifiedDate = question.LastModifiedDate,
             Answers = question.Answers?.ToAnswerDtoList(),
-            Tags = question.Tags.ToQuestionTagReducedDtoList(),
+            Tags = question.Tags?.ToQuestionTagReducedDtoList(),
             Score = question.Score
         };
     }
-
+    
     public static Question ToQuestion(this PostQuestionDto postQuestionDto, int authorId)
     {
         return new Question
         {
+            Id = postQuestionDto.Id,
             Title = postQuestionDto.Title,
             Text = postQuestionDto.Text,
             AuthorId = authorId,
@@ -54,6 +55,24 @@ public static class QuestionExtensions
             DatePosted = DateTime.Now,
             Tags = postQuestionDto.Tags.ToQuestionTagList(),
             Score = 0
+        };
+    }
+
+    public static Question ToQuestion(this PostQuestionDto updatedQuestionDto, Question oldQuestion)
+    {
+        return new Question
+        {
+            Id = oldQuestion.Id,
+            Title = updatedQuestionDto.Title,
+            Text = updatedQuestionDto.Text,
+            AuthorId = oldQuestion.AuthorId,
+            PictureUrl = updatedQuestionDto.PictureUrl,
+            DatePosted = oldQuestion.DatePosted,
+            LastModifiedDate = DateTime.Now,
+            Answers = oldQuestion.Answers,
+            Tags = updatedQuestionDto.Tags.ToQuestionTagList(),
+            Votes = oldQuestion.Votes,
+            Score = oldQuestion.Score
         };
     }
 }

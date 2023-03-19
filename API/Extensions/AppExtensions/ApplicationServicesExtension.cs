@@ -17,9 +17,13 @@ public static class ApplicationServicesExtension
         services.AddScoped<ITagService, TagService>();
 
         services.AddScoped<ITokenService, TokenService>();
-
+        
         services.AddScoped<QuestionRepository, QuestionRepository>();
+        services.AddScoped<QuestionTagRepository, QuestionTagRepository>();
         services.AddScoped<IQuestionService, QuestionService>();
+
+        services.AddScoped<AnswerRepository, AnswerRepository>();
+        services.AddScoped<IAnswerService, AnswerService>();
 
         services.AddIdentity<User, IdentityRole<int>>(config =>
             {
