@@ -1,8 +1,9 @@
 ﻿using Core.Entities;
+using Core.Interfaces.RepositoryInterfaces;
 
 namespace Infrastructure.Repositories;
 
-public class QuestionTagRepository : GenericRepository<QuestionTag>
+public class QuestionTagRepository : GenericRepository<QuestionTag>, IQuestionTagRepository
 {
     private readonly DatabaseContext _context;
 
