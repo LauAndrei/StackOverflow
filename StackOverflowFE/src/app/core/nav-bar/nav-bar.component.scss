@@ -1,0 +1,27 @@
+nav {
+    border-top: 3px solid #f2740d;
+    border-bottom: 2px solid rgba(191, 191, 191, 0.7);
+    height: 50px;
+
+    ul {
+        display: flex;
+        flex-direction: row;
+        text-decoration: none;
+        justify-content: center;
+        height: 100%;
+        align-items: center;
+
+        li {
+            display: block;
+            padding: 6px 12px;
+
+            &:hover {
+                background-color: #e3e6e8;
+                border-radius: 1em;
+            }
+            a {
+                color: #525960;
+            }
+        }
+    }
+}

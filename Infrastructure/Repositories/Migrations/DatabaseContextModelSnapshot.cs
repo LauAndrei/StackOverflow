@@ -51,7 +51,7 @@ namespace Infrastructure.Repositories.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("Answers");
+                    b.ToTable("Answers", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.Question", b =>
@@ -87,7 +87,7 @@ namespace Infrastructure.Repositories.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Questions");
+                    b.ToTable("Questions", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.QuestionTag", b =>
@@ -108,7 +108,7 @@ namespace Infrastructure.Repositories.Migrations
 
                     b.HasIndex("TagId");
 
-                    b.ToTable("QuestionTags");
+                    b.ToTable("QuestionTags", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.Tag", b =>
@@ -123,7 +123,7 @@ namespace Infrastructure.Repositories.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags");
+                    b.ToTable("Tags", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.User", b =>
@@ -228,7 +228,7 @@ namespace Infrastructure.Repositories.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Votes");
+                    b.ToTable("Votes", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
