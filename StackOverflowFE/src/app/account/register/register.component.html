@@ -1,1 +1,40 @@
-<p>register works!</p>
+<div class="form__container">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form__container">
+            <app-text-input
+                [formControl]="form.controls['firstName']"
+                [label]="'First Name'"
+                [formSubmitted]="formSubmitted"
+            ></app-text-input>
+
+            <app-text-input
+                [formControl]="form.controls['lastName']"
+                [label]="'Last Name'"
+                [formSubmitted]="formSubmitted"
+            ></app-text-input>
+
+            <app-text-input
+                [formControl]="form.controls['username']"
+                [label]="'Username'"
+                [formSubmitted]="formSubmitted"
+            ></app-text-input>
+
+            <app-text-input
+                [formControl]="form.controls['email']"
+                [label]="'Email'"
+                [formSubmitted]="formSubmitted"
+            ></app-text-input>
+
+            <app-text-input
+                [formControl]="form.controls['password']"
+                [type]="'password'"
+                [label]="'Password'"
+                [formSubmitted]="formSubmitted"
+            ></app-text-input>
+
+            <button type="submit">Register</button>
+
+            <p>Already have an account? <a routerLink="/login">Log In</a></p>
+        </div>
+    </form>
+</div>

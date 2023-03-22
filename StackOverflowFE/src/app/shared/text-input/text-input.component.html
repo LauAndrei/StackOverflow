@@ -1,0 +1,26 @@
+<div class="label-and-input__container">
+    <label for="{{ label }}">{{ label }}</label>
+    <input
+        [ngClass]="{
+            'ng-invalid':
+                (control && control.errors?.['required']) &&
+                (control!.touched || formSubmitted),
+            'ng-touched':
+            (
+            control &&
+            control.errors?.['required']) &&
+        (control!.touched || formSubmitted)
+        }"
+        type="{{ type }}"
+        [formControl]="control"
+    />
+    <small
+        *ngIf="
+        (
+        control &&
+        control.errors?.['required']) &&
+    (control!.touched || formSubmitted)
+        "
+        >{{ label }} is required</small
+    >
+</div>

@@ -1,42 +1,18 @@
 <div class="form__container">
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="form__container">
-            <div class="username__container">
-                <label for="mailOrUsername">Email or Username</label>
-                <input
-                    type="text"
-                    id="mailOrUsername"
-                    formControlName="mailOrUsername"
-                    [ngClass]="{
-                        'ng-invalid': formSubmitted,
-                        'ng-touched': formSubmitted
-                    }"
-                />
-                <small
-                    *ngIf="
-                        loginForm.get('mailOrUsername')?.touched ||
-                        formSubmitted
-                    "
-                    >*Required field</small
-                >
-            </div>
+            <app-text-input
+                [formControl]="this.loginForm.controls['emailOrUsername']"
+                [label]="'Email or Username'"
+                [formSubmitted]="formSubmitted"
+            ></app-text-input>
 
-            <div class="password__container">
-                <label for="password">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    formControlName="password"
-                    [ngClass]="{
-                        'ng-invalid': formSubmitted,
-                        'ng-touched': formSubmitted
-                    }"
-                />
-                <small
-                    *ngIf="loginForm.get('password')?.touched || formSubmitted"
-                    >*Required field</small
-                >
-            </div>
+            <app-text-input
+                [formControl]="this.loginForm.controls['password']"
+                [type]="'password'"
+                [label]="'Password'"
+                [formSubmitted]="formSubmitted"
+            ></app-text-input>
 
             <button type="submit">Login</button>
 

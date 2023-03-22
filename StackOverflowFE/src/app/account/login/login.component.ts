@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
 
     ngOnInit(): void {
         this.loginForm = new FormGroup({
-            mailOrUsername: new FormControl(null, Validators.required),
+            emailOrUsername: new FormControl(null, Validators.required),
             password: new FormControl(null, Validators.required),
         });
     }
@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
     onSubmit() {
         this.formSubmitted = true;
         if (this.loginForm.valid) {
-            console.log(this.loginForm);
+            console.log(this.loginForm.value);
         }
     }
 }
