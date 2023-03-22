@@ -1,21 +1,27 @@
-<div>
+<div class="navbar__container">
+    <img src="../../../assets/logo.png" height="30" width="150" alt="logo" />
+
     <nav>
         <ul>
             <li>
-                <a>Home</a>
+                <a routerLink="/home" routerLinkActive="active">Home</a>
             </li>
 
             <li>
-                <a>Questions</a>
+                <a routerLink="/questions">Questions</a>
             </li>
 
             <li>
-                <a>Tags</a>
+                <a routerLink="/tags">Tags</a>
             </li>
 
             <li>
-                <a>Users</a>
+                <a routerLink="/users">Users</a>
             </li>
         </ul>
     </nav>
+
+    <div>
+        <p>Hello, <span>User!</span></p>
+    </div>
 </div>
