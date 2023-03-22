@@ -1,0 +1,28 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    height: 90vh;
+
+    .container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        .img__container {
+            background-image: url('../../assets/presentation-image.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+
+            h1 {
+                font-size: 50px;
+            }
+
+            span {
+                color: #f2740d;
+            }
+
+            p {
+                font-size: 28px;
+            }
+        }
+    }
+}

@@ -1,2 +1,46 @@
-<p>login works!</p>
-<h1>LOGIIIIIIIN</h1>
+<div class="form__container">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form__container">
+            <div class="username__container">
+                <label for="mailOrUsername">Email or Username</label>
+                <input
+                    type="text"
+                    id="mailOrUsername"
+                    formControlName="mailOrUsername"
+                    [ngClass]="{
+                        'ng-invalid': formSubmitted,
+                        'ng-touched': formSubmitted
+                    }"
+                />
+                <small
+                    *ngIf="
+                        loginForm.get('mailOrUsername')?.touched ||
+                        formSubmitted
+                    "
+                    >*Required field</small
+                >
+            </div>
+
+            <div class="password__container">
+                <label for="password">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    formControlName="password"
+                    [ngClass]="{
+                        'ng-invalid': formSubmitted,
+                        'ng-touched': formSubmitted
+                    }"
+                />
+                <small
+                    *ngIf="loginForm.get('password')?.touched || formSubmitted"
+                    >*Required field</small
+                >
+            </div>
+
+            <button type="submit">Login</button>
+
+            <p>Are you new here? <a routerLink="/register">Register</a></p>
+        </div>
+    </form>
+</div>
