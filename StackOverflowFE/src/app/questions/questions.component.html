@@ -1,1 +1,22 @@
-<p>questions works!</p>
+<div class="container">
+    <div class="form__container">
+        <form [formGroup]="form">
+            <div class="form__container">
+                <app-text-input
+                    [formControl]="this.form.controls['text']"
+                    [label]="'Text Search'"
+                ></app-text-input>
+
+                <app-text-input
+                    [formControl]="this.form.controls['author']"
+                    [type]="'author'"
+                    [label]="'Author'"
+                ></app-text-input>
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <h1>Questions</h1>
+    </div>
+</div>

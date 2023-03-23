@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
 
     ngOnInit(): void {
         this.loginForm = new FormGroup({
-            emailOrUsername: new FormControl(null, Validators.required),
+            usernameOrEmail: new FormControl(null, Validators.required),
             password: new FormControl(null, Validators.required),
         });
     }
@@ -36,10 +36,9 @@ export class LoginComponent implements OnInit {
                     this.toastrService.success(RESPONSE.SUCCESS);
                 },
                 (err) => {
+                    this.toastrService.error(RESPONSE.ERROR);
                     console.log(err);
-                    this.toastrService.error(RESPONSE.ERROR, 'coi', {
-                        timeOut: 3000,
-                    });
+                    console.log(this.loginForm.value);
                 },
             );
         }

@@ -4,6 +4,7 @@ import { ILoggedInUser } from '../shared/models/user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ENDPOINTS_MAP } from '../shared/constants/endpoints-config';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root',
@@ -16,7 +17,10 @@ export class AccountService {
 
     login(values: any) {
         return this.http
-            .post<ILoggedInUser>(ENDPOINTS_MAP.AUTHENTICATION.LOGIN, values)
+            .post<ILoggedInUser>(
+                environment.apiUrl + ENDPOINTS_MAP.AUTHENTICATION.LOGIN,
+                values,
+            )
             .pipe(
                 map((user: ILoggedInUser) => {
                     if (user) {
@@ -29,7 +33,10 @@ export class AccountService {
 
     register(values: any) {
         return this.http
-            .post<ILoggedInUser>(ENDPOINTS_MAP.AUTHENTICATION.REGISTER, values)
+            .post<ILoggedInUser>(
+                environment.apiUrl + ENDPOINTS_MAP.AUTHENTICATION.REGISTER,
+                values,
+            )
             .pipe(
                 map((user: ILoggedInUser) => {
                     if (user) {
@@ -55,9 +62,13 @@ export class AccountService {
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', `Bearer ${token}`);
         return this.http
-            .get<ILoggedInUser>(ENDPOINTS_MAP.AUTHENTICATION.GET_CURRENT_USER, {
-                headers,
-            })
+            .get<ILoggedInUser>(
+                environment.apiUrl +
+                    ENDPOINTS_MAP.AUTHENTICATION.GET_CURRENT_USER,
+                {
+                    headers,
+                },
+            )
             .pipe(
                 map((user: ILoggedInUser) => {
                     localStorage.setItem('token', user.token);

@@ -1,22 +1,22 @@
 <div class="form__container">
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <div class="form__container">
-            <app-text-input
-                [formControl]="this.loginForm.controls['emailOrUsername']"
-                [label]="'Email or Username'"
-                [formSubmitted]="formSubmitted"
-            ></app-text-input>
+	<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+		<div class="form__container">
+			<app-text-input
+					[formControl]="this.loginForm.controls['usernameOrEmail']"
+					[label]="'Email or Username'"
+					[formSubmitted]="formSubmitted"
+			></app-text-input>
 
-            <app-text-input
-                [formControl]="this.loginForm.controls['password']"
-                [type]="'password'"
-                [label]="'Password'"
-                [formSubmitted]="formSubmitted"
-            ></app-text-input>
+			<app-text-input
+					[formControl]="this.loginForm.controls['password']"
+					[type]="'password'"
+					[label]="'Password'"
+					[formSubmitted]="formSubmitted"
+			></app-text-input>
 
-            <button type="submit">Login</button>
+			<button type="submit">Login</button>
 
-            <p>Are you new here? <a routerLink="/register">Register</a></p>
-        </div>
-    </form>
+			<p>Are you new here? <a routerLink="/register">Register</a></p>
+		</div>
+	</form>
 </div>

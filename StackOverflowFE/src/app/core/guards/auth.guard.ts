@@ -24,10 +24,7 @@ export class AuthGuard implements CanActivate {
         | UrlTree {
         return this.accountService.currentUser$.pipe(
             map((auth) => {
-                if (auth) {
-                    return true;
-                }
-                return false;
+                return !!auth;
             }),
         );
     }

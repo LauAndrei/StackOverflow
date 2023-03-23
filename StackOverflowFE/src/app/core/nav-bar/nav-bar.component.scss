@@ -31,6 +31,10 @@
                     cursor: pointer;
                     user-select: none;
                     text-decoration: none;
+
+                    &.active {
+                        color: #f2740d;
+                    }
                 }
             }
         }
@@ -42,7 +46,5 @@
         }
     }
 
-    .active {
-        color: #f2740d;
-    }
+
 }
