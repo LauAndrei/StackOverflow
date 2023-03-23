@@ -5,4 +5,8 @@ export const ENDPOINTS_MAP = {
         REGISTER: 'account/register',
         GET_ALL_USERS: 'account/getAllUsers',
     },
+
+    QUESTIONS: {
+        GET_ALL_QUESTIONS: 'question/getAllQuestions',
+    },
 };

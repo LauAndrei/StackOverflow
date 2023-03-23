@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { IQuestion } from '../shared/models/question';
+import { QuestionsService } from './questions.service';
 
 @Component({
     selector: 'app-questions',
@@ -8,8 +10,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class QuestionsComponent implements OnInit {
     form!: FormGroup;
+    questions: IQuestion[];
 
-    constructor() {}
+    constructor(private questionsService: QuestionsService) {}
 
     ngOnInit(): void {
         this.form = new FormGroup({
@@ -17,5 +20,14 @@ export class QuestionsComponent implements OnInit {
             author: new FormControl(null),
             tag: new FormControl(null),
         });
+
+        this.questionsService.getAllQuestions().subscribe(
+            (questions) => {
+                this.questions = questions;
+            },
+            (err) => {
+                console.log(err);
+            },
+        );
     }
 }

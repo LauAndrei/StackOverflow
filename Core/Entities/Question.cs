@@ -6,6 +6,8 @@ public class Question : BaseEntity
     
     public string Text { get; set; } = null!;
     
+    public string Slug { get; set; }
+    
     public User? Author { get; set; }
     public int AuthorId { get; set; }
     

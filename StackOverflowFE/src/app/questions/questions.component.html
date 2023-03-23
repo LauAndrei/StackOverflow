@@ -5,18 +5,45 @@
                 <app-text-input
                     [formControl]="this.form.controls['text']"
                     [label]="'Text Search'"
+                    [placeholder]="'Search by title'"
                 ></app-text-input>
 
                 <app-text-input
                     [formControl]="this.form.controls['author']"
-                    [type]="'author'"
                     [label]="'Author'"
+                    [placeholder]="'Search by an author'"
                 ></app-text-input>
+
+                <app-text-input
+                    [formControl]="this.form.controls['tag']"
+                    [label]="'Tag'"
+                    [placeholder]="'Search by a tag'"
+                ></app-text-input>
+
+                <button>Apply Filters</button>
             </div>
         </form>
     </div>
 
-    <div>
-        <h1>Questions</h1>
+    <div class="content">
+        <div class="header">
+            <h1>All Questions</h1>
+            <div class="btn-ask-question__container">
+                <button>Ask Question</button>
+            </div>
+            <p>
+                <span>12000</span>
+                Questions
+            </p>
+            <h6>Newest questions first!</h6>
+        </div>
+        <div *ngFor="let question of questions" class="card">
+            <app-question-card [question]="question"></app-question-card>
+        </div>
+    </div>
+
+    <div class="details">
+        <h2>Personal Project</h2>
+        <p>Here you will find the answer to every question</p>
     </div>
 </div>

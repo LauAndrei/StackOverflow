@@ -20,6 +20,7 @@ public class QuestionService : IQuestionService
     {
         return await _unitOfWork.QuestionRepository.GetAll()
             .Include(q => q.Author)
+            .OrderBy(q => q.DatePosted)
             .Select(q => q.ToQuestionDto())
             .ToListAsync();
     }

@@ -13,9 +13,6 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
         const token = localStorage.getItem('token');
-        this.accountService.loadLoggedInUser(token).subscribe({
-            next: () => console.log('loaded user'),
-            error: () => console.log('error'),
-        });
+        this.accountService.loadLoggedInUser(token).subscribe();
     }
 }

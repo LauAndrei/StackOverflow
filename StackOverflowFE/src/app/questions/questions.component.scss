@@ -1,6 +1,8 @@
 .container {
     display: grid;
-    grid-template-columns: 300px 400px 200px;
+    grid-template-columns: 1fr 2fr 1fr;
+    margin-left: auto;
+    margin-right: auto;
 
     .form__container {
         display: flex;
@@ -11,13 +13,21 @@
         form {
             display: flex;
             flex-direction: column;
-            margin: auto;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 0 !important;
             width: 300px;
             align-items: center;
+            border: none !important;
+            padding: 30px 0;
+
+            &:hover {
+                box-shadow: none !important;
+            }
 
             .form__container {
-                display: flex;
-                flex-direction: column;
+                display: grid;
+                grid-template-columns: 1fr;
 
                 small {
                     color: red;
@@ -53,14 +63,14 @@
                 }
 
                 button {
-                    width: 100%;
+                    width: 50%;
                     height: 35px;
                     background-color: #f2740d;
                     color: white;
                     border: 1px solid #f2740d;
                     border-radius: 0.5rem;
                     margin-top: 20px;
-                    font-size: 1.1rem;
+                    font-size: 1rem;
                     cursor: pointer;
 
                     &:hover {
@@ -83,5 +93,72 @@
                 }
             }
         }
+    }
+
+    .content {
+        .header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            padding: 0 20px;
+            row-gap: 20px;
+            border: 2px solid #d3d3d3;
+            padding-top: 20px;
+            border-top: none;
+            padding-bottom: 20px;
+
+            h1 {
+                color: #232629;
+                font-size: 27px;
+            }
+
+            p {
+                color: #232629;
+                font-size: 17px;
+                font-weight: 500;
+
+                span {
+                    color: #f2740d;
+                    font-weight: bold;
+                }
+            }
+
+            h6 {
+                font-size: 17px;
+                color: #232629;
+                justify-self: end;
+                font-weight: 500;
+            }
+
+            .btn-ask-question__container {
+                button {
+                    width: 50%;
+                    height: 35px;
+                    background-color: #f2740d;
+                    color: white;
+                    border: 1px solid #f2740d;
+                    border-radius: 0.2rem;
+                    font-size: 1rem;
+                    cursor: pointer;
+                    float: right;
+
+                    &:hover {
+                        background-color: white;
+                        color: #f2740d;
+                    }
+                }
+            }
+        }
+
+        .card {
+            border: 2px solid #d3d3d3;
+            padding-top: 20px;
+            padding-bottom: 10px;
+            border-top: none;
+        }
+    }
+
+    .details {
+        padding-top: 20px;
+        margin: 0 auto;
     }
 }

@@ -19,9 +19,9 @@ public static class QuestionExtensions
         {
             Id = question.Id,
             AuthorUsername = question.Author!.UserName,
+            Slug = question.Slug,
             Title = question.Title,
             Text = question.Text.Length > 200 ? question.Text[..200] + ".." : question.Text,
-            PictureUrl = question.PictureUrl,
             CreationDate = question.DatePosted,
             LastModifiedDate = question.LastModifiedDate
         };
@@ -49,6 +49,7 @@ public static class QuestionExtensions
         {
             Id = postQuestionDto.Id,
             Title = postQuestionDto.Title,
+            Slug = postQuestionDto.Title.Length > 60 ? postQuestionDto.Title.Substring(0, 60).Replace(' ', '-').ToLower() : postQuestionDto.Title.Replace(' ', '-').ToLower(),
             Text = postQuestionDto.Text,
             AuthorId = authorId,
             PictureUrl = postQuestionDto.PictureUrl,
