@@ -1,4 +1,4 @@
-<div class="navbar__container">
+<div class="navbar__container" *ngIf="currentUser$ | async as currentUser">
     <img src="../../../assets/logo.png" height="30" width="150" alt="logo" />
 
     <nav>
@@ -8,20 +8,24 @@
             </li>
 
             <li>
-                <a routerLink="/questions">Questions</a>
+                <a routerLink="/questions" routerLinkActive="active"
+                    >Questions</a
+                >
             </li>
 
             <li>
-                <a routerLink="/tags">Tags</a>
+                <a routerLink="/tags" routerLinkActive="active">Tags</a>
             </li>
 
             <li>
-                <a routerLink="/users">Users</a>
+                <a routerLink="/users" routerLinkActive="active">Users</a>
             </li>
         </ul>
     </nav>
 
     <div>
-        <p>Hello, <span>User!</span></p>
+        <p>
+            Hello, <span>{{ currentUser.username }}!</span>
+        </p>
     </div>
 </div>

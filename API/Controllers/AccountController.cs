@@ -1,4 +1,5 @@
-﻿using Core.Constants;
+﻿using System.Security.Claims;
+using Core.Constants;
 using Core.Dtos.UserDtos;
 using Core.Entities;
 using Core.EntityExtensions.UserExtensions;
@@ -25,6 +26,23 @@ public class AccountController : ControllerBase
         _userManager = userManager;
         _signInManager = signInManager;
         _tokenService = tokenService;
+    }
+
+
+    [HttpGet]
+    [Authorize]
+    public async Task<ActionResult<LoggedInUserDto>> GetCurrentUser()
+    {
+        var email = User.FindFirstValue(ClaimTypes.Email);
+        var user = await _userManager.FindByEmailAsync(email);
+
+        return new LoggedInUserDto
+        {
+            Email = user.Email,
+            UserName = user.UserName,
+            Score = 0,
+            Token = await _tokenService.CreateToken(user)
+        };
     }
 
     [HttpPost]
