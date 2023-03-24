@@ -1,5 +1,5 @@
 .question__container {
-    padding: 0 10px 5px;
+    padding: 0 10px 10px;
 
     h6 {
         font-size: 13px;
@@ -28,5 +28,9 @@
         margin-top: 15px;
         display: flex;
         justify-content: space-between;
+
+        small {
+            letter-spacing: 1px;
+        }
     }
 }

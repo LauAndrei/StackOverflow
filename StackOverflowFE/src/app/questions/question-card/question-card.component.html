@@ -8,12 +8,12 @@
     <p>{{ question.text }}</p>
     <div class="date__container">
         <small>
-            Posted: {{ question.creationDate | date : 'd MMM y, h:mm a' }}
+            Posted: {{ question.creationDate | date : 'd MMM y, hh:mm a' }}
         </small>
 
         <small *ngIf="question.lastModifiedDate">
             Modified:
-            {{ question.lastModifiedDate | date : 'd MMM y, h:mm a' }}
+            {{ question.lastModifiedDate | date : 'd MMM y, hh:mm a' }}
         </small>
     </div>
 </div>
