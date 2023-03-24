@@ -2,7 +2,7 @@
     <h6 class="author">
         <span>{{ question.authorUsername }}</span> asked:
     </h6>
-    <a routerLink="question-details/{{ question.id }}/{{ question.slug }}">
+    <a routerLink="{{ question.id }}/{{ question.slug }}">
         {{ question.title }}
     </a>
     <p>{{ question.text }}</p>

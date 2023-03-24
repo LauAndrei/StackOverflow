@@ -3,10 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AccountComponent } from './account/account.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { NotAuthGuard } from './core/guards/not-auth.guard';
-import { HomeComponent } from './home/home.component';
 import { QuestionsComponent } from './questions/questions.component';
-import { TagsComponent } from './tags/tags.component';
-import { UsersComponent } from './users/users.component';
 
 const routes: Routes = [
     {
@@ -18,14 +15,12 @@ const routes: Routes = [
     },
     {
         path: 'home',
-        component: HomeComponent,
         canActivate: [AuthGuard],
         loadChildren: () =>
             import('./home/home.module').then((mod) => mod.HomeModule),
     },
     {
         path: 'questions',
-        component: QuestionsComponent,
         canActivate: [AuthGuard],
         loadChildren: () =>
             import('./questions/questions.module').then(
@@ -34,17 +29,19 @@ const routes: Routes = [
     },
     {
         path: 'tags',
-        component: TagsComponent,
         canActivate: [AuthGuard],
         loadChildren: () =>
             import('./tags/tags.module').then((mod) => mod.TagsModule),
     },
     {
         path: 'users',
-        component: UsersComponent,
         canActivate: [AuthGuard],
         loadChildren: () =>
             import('./users/users.module').then((mod) => mod.UsersModule),
+    },
+    {
+        path: '**',
+        redirectTo: '/home',
     },
 ];
 
