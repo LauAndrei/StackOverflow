@@ -1,0 +1,27 @@
+<div class="answer__container">
+	<div class="vote__container">
+		<img src="../../../assets/upvote.svg">
+		<p>{{answer.score}}</p>
+		<img src="../../../assets/downvote.svg">
+	</div>
+	<div>
+		<div class="author__container">
+			<p>{{answer.authorUsername}}</p>
+		</div>
+		<div class="date__container">
+			<p>Answered:
+				<span>{{answer.datePosted | date : 'd MMM y, hh:mm a'}}</span>
+			</p>
+
+			<p *ngIf="answer.lastModifiedDate">Last Modified:
+				<span>{{answer.lastModifiedDate | date : 'd MMM y, hh:mm a'}}</span>
+			</p>
+		</div>
+		<div class="text__container">
+			<p>{{answer.text}}</p>
+		</div>
+		<div class="img__container">
+			<img src="{{answer.pictureUrl}}">
+		</div>
+	</div>
+</div>

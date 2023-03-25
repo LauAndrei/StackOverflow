@@ -1,1 +1,96 @@
-<h1>IANPOIUDNIADIOADN</h1>
+<div class="container">
+	<div *ngIf="questionDetails && !isLoading">
+		<div class="header">
+			<h1 class="title">{{ questionDetails?.title }}</h1>
+			<div class="btn-ask-question__container">
+				<button>Ask Question</button>
+			</div>
+			<div class="more-info">
+				<p>
+					Asked
+					<span>
+                        {{
+                        questionDetails?.datePosted
+                            | date : 'd MMM y, hh:mm a'
+						}}
+                    </span>
+				</p>
+				<p
+						*ngIf="questionDetails.lastModifiedDate"
+						style="margin-left: 20px"
+				>
+					Modified
+					<span>
+                        {{
+                        questionDetails?.lastModifiedDate
+                            | date : 'd MMM y, hh:mm a'
+						}}
+                    </span>
+				</p>
+			</div>
+		</div>
+
+		<div class="content">
+			<div class="vote-text__container">
+				<div class="vote">
+					<img src="../../../assets/upvote.svg"/>
+					<h3>{{ questionDetails.score }}</h3>
+					<img src="../../../assets/downvote.svg"/>
+				</div>
+
+				<div class="text__container">
+					<p>{{ questionDetails.text }}</p>
+				</div>
+			</div>
+			<div class="useless-things">
+				<div class="title__container">
+					<h2 class="title">The Overflow Rules</h2>
+				</div>
+				<div class="list__container">
+					<ul>
+						<li>Temporary policy: ChatGPT is banned</li>
+						<li>
+							Improving how we report updates and receive feedback
+							on the Content Discovery...
+						</li>
+						<li>
+							Plagiarism flag and moderator tooling has launched
+							to Stack Overflow!
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="tags__container">
+				<button
+						disabled
+						class="tag"
+						*ngFor="let tag of questionDetails.tags"
+				>
+					{{ tag.name }}
+				</button>
+			</div>
+
+			<div class="answers__container">
+				<div *ngFor="let answer of questionDetails.answers">
+					<app-answer-card [answer]="answer"></app-answer-card>
+				</div>
+			</div>
+
+			<div class="post__answer__container">
+				<h1>Post Your Answer!</h1>
+				<textarea></textarea>
+				<button>Post Answer</button>
+			</div>
+
+
+		</div>
+	</div>
+
+	<div *ngIf="isLoading" class="loading__container">
+		<h1 class="loading">Loading..</h1>
+	</div>
+
+	<div *ngIf="!isLoading && !questionDetails" class="error__container">
+		<h1 class="error">An error has occured..</h1>
+	</div>
+</div>
