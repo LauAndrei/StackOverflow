@@ -47,7 +47,7 @@ namespace API.Controllers
         /// </param>
         /// <returns>An object containing all the necessary details of the question, including answers</returns>
         [HttpGet]
-        [Route("QuestionDetails/{id:int}")]
+        [Route("GetQuestionDetails/{id:int}")]
         public async Task<QuestionExpandedDto> GetQuestionFullInfo(int id)
         {
             return await _questionService.GetQuestionFullInfo(id);
