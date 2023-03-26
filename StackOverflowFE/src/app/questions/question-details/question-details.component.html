@@ -28,14 +28,20 @@
                     </span>
 				</p>
 			</div>
+			<p class="author">
+				Asked By:
+				<span>
+						{{questionDetails.authorUsername}}
+				</span>
+			</p>
 		</div>
 
 		<div class="content">
 			<div class="vote-text__container">
 				<div class="vote">
-					<img src="../../../assets/upvote.svg"/>
+					<img src="../../../assets/upvote.svg" alt="upvote"/>
 					<h3>{{ questionDetails.score }}</h3>
-					<img src="../../../assets/downvote.svg"/>
+					<img src="../../../assets/downvote.svg" alt="downvote"/>
 				</div>
 
 				<div class="text__container">
@@ -70,7 +76,7 @@
 				</button>
 			</div>
 
-			<div class="answers__container">
+			<div class="answers__container" *ngIf="questionDetails.answers.length > 0">
 				<div *ngFor="let answer of questionDetails.answers">
 					<app-answer-card [answer]="answer"></app-answer-card>
 				</div>
@@ -91,6 +97,6 @@
 	</div>
 
 	<div *ngIf="!isLoading && !questionDetails" class="error__container">
-		<h1 class="error">An error has occured..</h1>
+		<h1 class="error">An error has occurred..</h1>
 	</div>
 </div>

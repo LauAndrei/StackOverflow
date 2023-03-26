@@ -13,7 +13,6 @@
     .header {
         display: grid;
         grid-template-columns: 3fr 0.8fr;
-
         row-gap: 20px;
         padding-top: 20px;
         padding-bottom: 20px;
@@ -75,6 +74,11 @@
                 }
             }
         }
+
+        .author {
+            grid-row-start: 3;
+            font-weight: 400;
+        }
     }
 
     .content {
@@ -83,6 +87,7 @@
         column-gap: 50px;
         border-top: 1px solid #d3d3d3;
         padding-top: 20px;
+        row-gap: 30px;
 
         .vote-text__container {
             display: flex;
@@ -109,6 +114,9 @@
             background-color: #fbf3d5;
             padding: 15px;
             border: 1px solid #d3d3d3;
+            grid-column: 2;
+            grid-row: span 3;
+            height: fit-content;
 
             .title__container {
                 border-bottom: 1px solid #d3d3d3;
@@ -132,8 +140,6 @@
         }
 
         .tags__container {
-            display: flex;
-            flex-direction: row;
             grid-row-start: 2;
 
             .tag {
@@ -153,9 +159,7 @@
         }
 
         .post__answer__container {
-            grid-row-start: 4;
             margin-bottom: 30px;
-            margin-top: 30px;
 
             h1 {
                 font-weight: 400;
