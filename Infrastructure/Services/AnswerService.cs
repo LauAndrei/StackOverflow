@@ -1,4 +1,6 @@
-﻿using Core.Dtos.AnswerDtos;
+﻿using System.Security.Claims;
+using Core.Dtos.AnswerDtos;
+using Core.Entities;
 using Core.EntityExtensions.AnswerExtensions;
 using Core.Interfaces.RepositoryInterfaces;
 using Core.Interfaces.ServiceInterfaces;
@@ -24,13 +26,13 @@ public class AnswerService : IAnswerService
             .ToListAsync();
     }
 
-    public async Task<int> PostAnswer(PostAnswerDto newAnswer, int authorId)
+    public async Task<AnswerDto> PostAnswer(PostAnswerDto newAnswer, int authorId, string authorUsername)
     {
         var addedAnswer = await _unitOfWork.AnswerRepository.AddAsync(newAnswer.ToAnswer(authorId));
 
         await _unitOfWork.SaveChangesAsync();
-        
-        return addedAnswer.Entity.Id;
+
+        return addedAnswer.Entity.ToAnswerDto(authorUsername);
     }
 
     public async Task<bool> UpdateAnswer(PostAnswerDto updatedAnswer)

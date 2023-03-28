@@ -7,3 +7,10 @@ export interface IAnswer {
     pictureUrl: string;
     score: number;
 }
+
+export interface IPostAnswer {
+    id: number;
+    text: string;
+    questionId: number;
+    pictureUrl: string;
+}

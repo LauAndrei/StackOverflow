@@ -13,7 +13,7 @@ import { AuthGuard } from './auth.guard';
     providedIn: 'root',
 })
 export class NotAuthGuard implements CanActivate {
-    constructor(private authGuard: AuthGuard, private router: Router) {}
+    constructor(private router: Router) {}
 
     canActivate(
         route: ActivatedRouteSnapshot,
@@ -23,10 +23,11 @@ export class NotAuthGuard implements CanActivate {
         | Promise<boolean | UrlTree>
         | boolean
         | UrlTree {
-        const isNotAuth = !this.authGuard.canActivate(route, state);
-        if (!isNotAuth) {
+        const token = localStorage.getItem('token');
+        if (token) {
             this.router.navigateByUrl('home');
+            return false;
         }
-        return isNotAuth;
+        return true;
     }
 }

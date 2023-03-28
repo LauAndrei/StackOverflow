@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ENDPOINTS_MAP } from '../shared/constants/endpoints-config';
 import { IQuestion, IQuestionDetails } from '../shared/models/question';
+import { IAnswer, IPostAnswer } from '../shared/models/answer';
 
 @Injectable({
     providedIn: 'root',
@@ -23,6 +24,13 @@ export class QuestionsService {
             environment.apiUrl +
                 ENDPOINTS_MAP.QUESTIONS.GET_QUESTION_DETAILS +
                 id,
+        );
+    }
+
+    postAnswer(answer: IPostAnswer): Observable<IAnswer> {
+        return this.http.post<IAnswer>(
+            environment.apiUrl + ENDPOINTS_MAP.ANSWERS.POST_ANSWER,
+            answer,
         );
     }
 }

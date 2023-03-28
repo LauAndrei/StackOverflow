@@ -18,6 +18,20 @@ public static class AnswerExtensions
             Score = answer.Score
         };
     }
+    
+    public static AnswerDto ToAnswerDto(this Answer answer, string authorUsername)
+    {
+        return new AnswerDto
+        {
+            Id = answer.Id,
+            AuthorUsername = authorUsername,
+            Text = answer.Text,
+            DatePosted = answer.DatePosted,
+            LastModifiedDate = answer.LastModifiedDate,
+            PictureUrl = answer.PictureUrl,
+            Score = answer.Score
+        };
+    }
 
     /// <summary>
     ///     Method used when posting an answer

@@ -10,4 +10,8 @@ export const ENDPOINTS_MAP = {
         GET_ALL_QUESTIONS: 'question/getAllQuestions',
         GET_QUESTION_DETAILS: 'question/getQuestionDetails/',
     },
+
+    ANSWERS: {
+        POST_ANSWER: 'answer/postAnswer',
+    },
 };

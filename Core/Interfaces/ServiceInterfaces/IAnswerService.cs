@@ -6,7 +6,7 @@ public interface IAnswerService
 {
     public Task<List<AnswerDto>> GetAllAnswers();
 
-    public Task<int> PostAnswer(PostAnswerDto newAnswer, int authorId);
+    public Task<AnswerDto> PostAnswer(PostAnswerDto newAnswer, int authorId, string authorUsername);
 
     public Task<bool> UpdateAnswer(PostAnswerDto updatedAnswer);
 

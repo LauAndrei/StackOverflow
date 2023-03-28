@@ -48,7 +48,7 @@ namespace API.Controllers
         /// <exception cref="ArgumentNullException"></exception>
         [HttpPost]
         [Route("PostAnswer")]
-        public async Task<int> PostAnswer(PostAnswerDto newAnswer)
+        public async Task<AnswerDto> PostAnswer(PostAnswerDto newAnswer)
         {
             if (newAnswer is null)
             {
@@ -56,8 +56,11 @@ namespace API.Controllers
             }
 
             var authorId = User.GetUserId();
+
+            //TODO: Solve this issue - this is returning null
+            var authorUsername = User.Identity.Name;
             
-            return await _answerService.PostAnswer(newAnswer, authorId);
+            return await _answerService.PostAnswer(newAnswer, authorId, authorUsername);
         }
     
         /// <summary>
