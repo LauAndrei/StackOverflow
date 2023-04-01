@@ -9,7 +9,7 @@ import { IAnswer, IPostAnswer } from '../shared/models/answer';
 @Injectable({
     providedIn: 'root',
 })
-export class QuestionsService {
+export class QuestionService {
     constructor(private http: HttpClient) {}
 
     //for testing purposes only
@@ -31,6 +31,19 @@ export class QuestionsService {
         return this.http.post<IAnswer>(
             environment.apiUrl + ENDPOINTS_MAP.ANSWERS.POST_ANSWER,
             answer,
+        );
+    }
+
+    editAnswer(answer: IPostAnswer): Observable<boolean> {
+        return this.http.put<boolean>(
+            environment.apiUrl + ENDPOINTS_MAP.ANSWERS.UPDATE_ANSWER,
+            answer,
+        );
+    }
+
+    deleteAnswer(id: number): Observable<boolean> {
+        return this.http.delete<boolean>(
+            environment.apiUrl + ENDPOINTS_MAP.ANSWERS.DELETE_ANSWER + id,
         );
     }
 }

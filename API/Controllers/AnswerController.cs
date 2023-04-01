@@ -56,8 +56,7 @@ namespace API.Controllers
             }
 
             var authorId = User.GetUserId();
-
-            //TODO: Solve this issue - this is returning null
+            
             var authorUsername = User.Identity.Name;
             
             return await _answerService.PostAnswer(newAnswer, authorId, authorUsername);

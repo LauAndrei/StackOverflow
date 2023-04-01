@@ -49,7 +49,8 @@ public static class ApplicationServicesExtension
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Token:Key"])),
                     ValidIssuer = configuration["Token:Issuer"],
                     ValidateIssuer = true,
-                    ValidateAudience = false
+                    ValidateAudience = false,
+                    NameClaimType = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname",
                 };
             });
         

@@ -13,5 +13,7 @@ export const ENDPOINTS_MAP = {
 
     ANSWERS: {
         POST_ANSWER: 'answer/postAnswer',
+        UPDATE_ANSWER: 'answer/updateAnswer',
+        DELETE_ANSWER: 'answer/deleteAnswer/',
     },
 };

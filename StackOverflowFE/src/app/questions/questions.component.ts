@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { IQuestion } from '../shared/models/question';
-import { QuestionsService } from './questions.service';
+import { QuestionService } from './question.service';
 
 @Component({
     selector: 'app-questions',
@@ -12,7 +12,7 @@ export class QuestionsComponent implements OnInit {
     form!: FormGroup;
     questions: IQuestion[];
 
-    constructor(private questionsService: QuestionsService) {}
+    constructor(private questionsService: QuestionService) {}
 
     ngOnInit(): void {
         this.form = new FormGroup({

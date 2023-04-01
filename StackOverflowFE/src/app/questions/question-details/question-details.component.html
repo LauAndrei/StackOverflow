@@ -78,7 +78,7 @@
 
 			<div class="answers__container" *ngIf="questionDetails.answers.length > 0">
 				<div *ngFor="let answer of questionDetails.answers">
-					<app-answer-card [answer]="answer"></app-answer-card>
+					<app-answer-card [answer]="answer" (delete)="deleteAnswer($event)"></app-answer-card>
 				</div>
 			</div>
 

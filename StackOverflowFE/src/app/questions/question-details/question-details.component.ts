@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IQuestionDetails } from 'src/app/shared/models/question';
-import { QuestionsService } from '../questions.service';
+import { QuestionService } from '../question.service';
 import { ToastrService } from 'ngx-toastr';
 import { IPostAnswer } from '../../shared/models/answer';
 import { RESPONSE } from '../../shared/constants/response';
-import { async, Observable } from 'rxjs';
-import { ILoggedInUser } from '../../shared/models/user';
-import { AccountService } from '../../account/account.service';
 
 @Component({
     selector: 'app-question-details',
@@ -21,9 +18,9 @@ export class QuestionDetailsComponent implements OnInit {
     answerText: string = '';
 
     constructor(
-        private questionsService: QuestionsService,
+        private questionService: QuestionService,
         private activatedRoute: ActivatedRoute,
-        private toastrService: ToastrService,
+        private toastService: ToastrService,
     ) {}
 
     ngOnInit(): void {
@@ -31,7 +28,7 @@ export class QuestionDetailsComponent implements OnInit {
             this.questionId = +params.get('id');
         });
 
-        this.questionsService.getQuestionDetails(this.questionId).subscribe(
+        this.questionService.getQuestionDetails(this.questionId).subscribe(
             (question) => {
                 this.questionDetails = question;
             },
@@ -45,16 +42,35 @@ export class QuestionDetailsComponent implements OnInit {
     postAnswer() {
         if (!this.isEmptyOrSpaces(this.answerText)) {
             const answer = this.createAnswer(this.answerText);
-            this.questionsService.postAnswer(answer).subscribe(
+            this.questionService.postAnswer(answer).subscribe(
                 (addedAnswer) => {
-                    this.toastrService.success(RESPONSE.ANSWER.SUCCESS_POST);
+                    this.toastService.success(RESPONSE.ANSWER.SUCCESS_POST);
                     this.questionDetails.answers.push(addedAnswer);
+                    this.answerText = '';
                 },
-                (err) => {
-                    this.toastrService.error(RESPONSE.ERROR);
+                () => {
+                    this.toastService.error(RESPONSE.ERROR);
                 },
             );
         }
+    }
+
+    deleteAnswer(id: number) {
+        this.questionService.deleteAnswer(id).subscribe(
+            () => {
+                this.removeAnswerFromArray(id);
+                this.toastService.success(RESPONSE.ANSWER.SUCCESS_DELETE);
+            },
+            () => {
+                this.toastService.error(RESPONSE.ERROR);
+            },
+        );
+    }
+
+    private removeAnswerFromArray(id: number) {
+        this.questionDetails.answers = this.questionDetails.answers.filter(
+            (x) => x.id !== id,
+        );
     }
 
     private isEmptyOrSpaces(text: string) {

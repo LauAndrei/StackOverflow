@@ -1,12 +1,22 @@
-<div class="answer__container">
+<div class="answer__container" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
 	<div class="vote__container">
-		<img src="../../../assets/upvote.svg">
+		<img src="../../../assets/upvote.svg" *ngIf="answer.authorUsername !== currentUser.userName">
 		<h3>{{answer.score}}</h3>
-		<img src="../../../assets/downvote.svg">
+		<img src="../../../assets/downvote.svg" *ngIf="answer.authorUsername !== currentUser.userName">
 	</div>
 	<div>
-		<div class="author__container">
-			<p>{{answer.authorUsername}}</p>
+		<div class="author-and-icons__container">
+			<div class="author__container">
+				<p>{{answer.authorUsername}}</p>
+			</div>
+			<div class="icons__container" *ngIf="this.showIcons">
+				<a (click)="onEdit()">
+					<img src="../../../assets/edit-icon.png">
+				</a>
+				<a (click)="onDelete()">
+					<img src="assets/delete-icon.png">
+				</a>
+			</div>
 		</div>
 		<div class="date__container">
 			<p>Answered:
@@ -17,8 +27,12 @@
 				<span>{{answer.lastModifiedDate | date : 'd MMM y, hh:mm a'}}</span>
 			</p>
 		</div>
-		<div class="text__container">
+		<div class="text__container" *ngIf="!this.editMode">
 			<p>{{answer.text}}</p>
+		</div>
+		<div class="text-edit__container" *ngIf="this.editMode">
+			<textarea [(ngModel)]="this.answerEditedText"></textarea>
+			<button (click)="onSave()">Save</button>
 		</div>
 		<div class="img__container">
 			<img src="{{answer.pictureUrl}}">

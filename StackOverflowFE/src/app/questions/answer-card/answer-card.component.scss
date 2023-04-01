@@ -6,9 +6,13 @@
     display: grid;
     grid-template-columns: 40px 1fr;
     column-gap: 20px;
-    margin-top: 30px;
+    padding-top: 30px;
     border: 1px none hsl(210, 8%, 90%);
     border-bottom-style: solid;
+
+    &:hover {
+        border: 1px solid #d3d3d3;
+    }
 
     .vote__container {
         display: flex;
@@ -24,7 +28,26 @@
         }
     }
 
-    .author__container {
+    .author-and-icons__container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .author__container {
+        }
+
+        .icons__container {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            justify-items: flex-end;
+            padding-right: 25px;
+
+            a {
+                margin-left: 25px;
+                cursor: pointer;
+            }
+        }
     }
 
     .date__container {
@@ -43,6 +66,52 @@
 
     .text__container {
         font-weight: 400;
+    }
+
+    .text-edit__container {
+        margin-bottom: 30px;
+
+        h1 {
+            font-weight: 400;
+            font-size: 21px;
+            margin-bottom: 30px;
+        }
+
+        textarea {
+            height: 100px;
+            width: 80%;
+            resize: none;
+            line-height: 1.3;
+            padding: 15px;
+            font-size: 17px;
+            font-weight: 500;
+            color: #525960;
+
+            &:focus-visible {
+                outline: none;
+                border: 2px solid #f2740d;
+                box-shadow: 0 0 20px 0 rgba(242, 116, 13, 0.2);
+            }
+        }
+
+        button {
+            margin-top: 20px;
+            width: 150px;
+            height: 35px;
+            background-color: #f2740d;
+            color: white;
+            border: 1px solid #f2740d;
+            border-radius: 0.2rem;
+            font-size: 1rem;
+            cursor: pointer;
+            float: left;
+            outline: none;
+
+            &:hover {
+                background-color: white;
+                color: #f2740d;
+            }
+        }
     }
 
     .img__container {
