@@ -7,4 +7,9 @@ export const RESPONSE = {
         SUCCESS_EDIT: 'Answer Successfully Updated!',
         SUCCESS_DELETE: 'Answer Successfully Deleted!',
     },
+
+    TAG: {
+        NOT_FOUND: "This Tag Doesn't Exist!",
+        SUCCESS_POST: 'Tag Successfully Created!',
+    },
 };

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IQuestionDetails } from 'src/app/shared/models/question';
 import { QuestionService } from '../question.service';
 import { ToastrService } from 'ngx-toastr';

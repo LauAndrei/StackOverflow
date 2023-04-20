@@ -13,6 +13,13 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
         const token = localStorage.getItem('token');
-        this.accountService.loadLoggedInUser(token).subscribe();
+        this.accountService.loadLoggedInUser(token).subscribe(
+            () => {},
+            () => {
+                // if the token expired => the call will fail => remove it from local storage
+                // so the user will be redirected to log in
+                localStorage.removeItem('token');
+            },
+        );
     }
 }

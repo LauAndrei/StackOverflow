@@ -16,4 +16,9 @@ export const ENDPOINTS_MAP = {
         UPDATE_ANSWER: 'answer/updateAnswer',
         DELETE_ANSWER: 'answer/deleteAnswer/',
     },
+
+    TAGS: {
+        GET_ALL_TAGS: 'tag/getAllTags',
+        POST_TAG: 'tag/createTag',
+    },
 };

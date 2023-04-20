@@ -41,7 +41,7 @@ public class TagController : ControllerBase
 
     [HttpPost]
     [Route("CreateTag")]
-    public async Task<int> CreateTag(TagDto tagDto)
+    public async Task<TagDto?> CreateTag(TagDto tagDto)
     {
         return await _tagService.CreateTagAsync(tagDto);
     }

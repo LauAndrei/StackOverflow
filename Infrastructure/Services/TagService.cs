@@ -48,16 +48,16 @@ public class TagService : ITagService
     /// <returns>
     ///     The id value of the new inserted Tag in case of success, or -1 if it was unsuccessfully
     /// </returns>
-    public async Task<int> CreateTagAsync(TagDto tag)
+    public async Task<TagDto?> CreateTagAsync(TagDto tag)
     {
         var newTag = await _unitOfWork.TagRepository.AddAsync(tag.ToTag());
 
-        if (await _unitOfWork.SaveChangesAsync())
+        if (!await _unitOfWork.SaveChangesAsync())
         {
-            return -1;
+            return null;
         }
 
-        return newTag.Entity.Id;
+        return newTag.Entity.ToTagDto();
     }
 
     /// <summary>

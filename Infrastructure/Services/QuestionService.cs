@@ -49,7 +49,7 @@ public class QuestionService : IQuestionService
             .FirstAsync();
     }
 
-    //TODO: Fix a bug - tags need to be removed before updating 
+    //TODO: Fix a bug - tags need to be removed before updating and change approach
     public async Task<bool> UpdateQuestion(PostQuestionDto question)
     {
         var existingQuestion = await _unitOfWork.QuestionRepository.GetAll()

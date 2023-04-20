@@ -13,7 +13,7 @@ public static class TagSeed
         {
             foreach (var tagDto in tagNames.Select(tagName => tagName.ToTagDto()))
             {
-                if(await tagService.CreateTagAsync(tagDto) < 0)
+                if(await tagService.CreateTagAsync(tagDto) is null)
                 {
                     break;
                 }

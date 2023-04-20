@@ -11,7 +11,7 @@ public interface ITagService
 
     public Task<Tag?> FindTagByName(string tagName);
 
-    public Task<int> CreateTagAsync(TagDto tagDto);
+    public Task<TagDto?> CreateTagAsync(TagDto tagDto);
 
     public Task<bool> CheckIfExistTags();
 

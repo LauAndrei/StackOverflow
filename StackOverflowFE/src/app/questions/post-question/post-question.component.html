@@ -1,0 +1,78 @@
+<!--suppress TypeScriptValidateTypes -->
+<div class="container">
+	<h1 class="title">
+		Post a Question!
+	</h1>
+	<div class="post-question__form__container">
+		<form [formGroup]="form">
+			<div class="details">
+				<label>Title</label>
+				<input formControlName="title" placeholder="Add a Title!"
+					   [ngClass]="{
+						'ng-invalid':
+							(this.form.controls['title'] && this.form.controls['title'].errors?.['required']) &&
+							(this.form.controls['title']!.touched || formSubmitted),
+						'ng-touched':
+						(this.form.controls['title'] && this.form.controls['title'].errors?.['required']) &&
+						(this.form.controls['title']!.touched || formSubmitted)
+						}"
+				>
+				<small *ngIf="(
+					this.form.controls['title'] &&
+					this.form.controls['title'].errors?.['required']) &&
+					(this.form.controls['title']!.touched || formSubmitted)
+        			"
+				>
+					Title is required
+				</small>
+			</div>
+
+			<div class="details">
+				<label>Text</label>
+				<textarea formControlName="text" placeholder="Add Some Text!" [ngClass]="{
+						'ng-invalid':
+							(this.form.controls['text'] && this.form.controls['text'].errors?.['required']) &&
+							(this.form.controls['text']!.touched || formSubmitted),
+						'ng-touched':
+						(this.form.controls['text'] && this.form.controls['text'].errors?.['required']) &&
+						(this.form.controls['text']!.touched || formSubmitted)
+						}">
+				</textarea>
+				<small *ngIf="(
+					this.form.controls['text'] &&
+					this.form.controls['text'].errors?.['required']) &&
+					(this.form.controls['text']!.touched || formSubmitted)
+        			"
+				>
+					Text is required
+				</small>
+			</div>
+
+			<div class="details tag__section">
+				<label>Tag</label>
+				<div>
+					<input list="tags" [(ngModel)]="currentTag" [ngModelOptions]="{standalone: true}"
+						   placeholder="Add a Tag!">
+					<datalist id="tags">
+						<option *ngFor="let tag of existingTags">
+							{{tag.name}}
+						</option>
+					</datalist>
+					<button class="add-tag" (click)="addTag()">Add Tag</button>
+					<button class="create-tag" (click)="createTag()">Create Tag</button>
+				</div>
+
+				<div class="tags__container">
+					<div *ngFor="let addedTag of questionTags; let i = index" class="tag__container">
+						<div class="delete-tag__container" (click)="removeTag(i)">
+							<img src="assets/x.png">
+						</div>
+						<p>{{addedTag.name}}</p>
+					</div>
+				</div>
+			</div>
+
+			<button class="post__button" (click)="postQuestion()">Post!</button>
+		</form>
+	</div>
+</div>
