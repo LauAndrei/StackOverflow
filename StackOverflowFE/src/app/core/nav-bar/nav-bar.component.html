@@ -1,31 +1,31 @@
 <div class="navbar__container" *ngIf="currentUser$ | async as currentUser">
-    <img src="../../../assets/logo.png" height="30" width="150" alt="logo" />
+	<img src="../../../assets/logo.png" height="30" width="150" alt="logo"/>
 
-    <nav>
-        <ul>
-            <li>
-                <a routerLink="/home" routerLinkActive="active">Home</a>
-            </li>
+	<nav>
+		<ul>
+			<li>
+				<a routerLink="/home" routerLinkActive="active">Home</a>
+			</li>
 
-            <li>
-                <a routerLink="/questions" routerLinkActive="active"
-                    >Questions</a
-                >
-            </li>
+			<li>
+				<a routerLink="/questions" routerLinkActive="active"
+				>Questions</a
+				>
+			</li>
 
-            <li>
-                <a routerLink="/tags" routerLinkActive="active">Tags</a>
-            </li>
+			<li>
+				<a routerLink="/tags" routerLinkActive="active">Tags</a>
+			</li>
 
-            <li>
-                <a routerLink="/users" routerLinkActive="active">Users</a>
-            </li>
-        </ul>
-    </nav>
+			<li>
+				<a routerLink="/users" routerLinkActive="active">Users</a>
+			</li>
+		</ul>
+	</nav>
 
-    <div>
-        <p>
-            Hello, <span>{{ currentUser.userName }}!</span>
-        </p>
-    </div>
+	<div>
+		<p>
+			Hello, <span (click)="logOut()">{{ currentUser.userName }}!</span>
+		</p>
+	</div>
 </div>

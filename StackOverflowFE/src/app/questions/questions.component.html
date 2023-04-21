@@ -4,13 +4,13 @@
 		<form [formGroup]="form">
 			<div class="form__container">
 				<app-text-input
-						[formControl]="this.form.controls['text']"
+						[formControl]="this.form.controls['title']"
 						[label]="'Text Search'"
 						[placeholder]="'Search by title'"
 				></app-text-input>
 
 				<app-text-input
-						[formControl]="this.form.controls['author']"
+						[formControl]="this.form.controls['authorUsername']"
 						[label]="'Author'"
 						[placeholder]="'Search by an author'"
 				></app-text-input>
@@ -21,7 +21,7 @@
 						[placeholder]="'Search by a tag'"
 				></app-text-input>
 
-				<button>Apply Filters</button>
+				<button (click)="filterQuestions()">Apply Filters</button>
 			</div>
 		</form>
 	</div>
@@ -33,13 +33,38 @@
 				<button routerLink="post-question">Ask Question</button>
 			</div>
 			<p>
-				<span>12000</span>
-				Questions
+				<span style="margin-right: 5px;">{{totalNumberOfQuestions}}</span>
+				Questions Found
 			</p>
 			<h6>Newest questions first!</h6>
 		</div>
-		<div *ngFor="let question of questions" class="card">
-			<app-question-card [question]="question"></app-question-card>
+
+		<div *ngIf="!isLoading">
+			<div *ngFor="let question of questions" class="card">
+				<app-question-card [question]="question"></app-question-card>
+			</div>
+		</div>
+
+		<div *ngIf="isLoading">
+			Loading..
+		</div>
+
+		<div class="page-no__container" *ngIf="questions.length > 0">
+			<button
+					(click)="changePage(currentPage - 1)"
+					*ngIf="currentPage > 1"
+			>
+				{{ currentPage - 1 }}
+			</button>
+			<button class="current__page">
+				{{ currentPage }}
+			</button>
+			<button
+					*ngIf="totalNumberOfQuestions > pageSize * currentPage"
+					(click)="changePage(currentPage + 1)"
+			>
+				{{ currentPage + 1 }}
+			</button>
 		</div>
 	</div>
 

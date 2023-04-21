@@ -1,9 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {TagDto, TagReduced} from '../../shared/models/tag';
-import {TagService} from '../../tags/tag.service';
-import {ToastrService} from 'ngx-toastr';
-import {RESPONSE} from '../../shared/constants/response';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { TagDto } from '../../shared/models/tag';
+import { TagService } from '../../tags/tag.service';
+import { ToastrService } from 'ngx-toastr';
+import { RESPONSE } from '../../shared/constants/response';
+import { QuestionService } from '../question.service';
+import { IPostQuestion } from '../../shared/models/question';
 
 @Component({
     selector: 'app-post-question',
@@ -21,8 +23,8 @@ export class PostQuestionComponent implements OnInit {
     constructor(
         private tagService: TagService,
         private toastrService: ToastrService,
-    ) {
-    }
+        private questionService: QuestionService,
+    ) {}
 
     ngOnInit(): void {
         this.form = new FormGroup({
@@ -62,7 +64,7 @@ export class PostQuestionComponent implements OnInit {
             return;
         }
 
-        const tagToCreate: TagDto = {id: 0, name: this.currentTag};
+        const tagToCreate: TagDto = { id: 0, name: this.currentTag };
 
         this.tagService.createTag(tagToCreate).subscribe(
             (tag) => {
@@ -84,6 +86,19 @@ export class PostQuestionComponent implements OnInit {
         if (!this.form.valid) {
             return;
         }
+
+        let questionToAdd: IPostQuestion = { ...this.form.value };
+        questionToAdd.tags = this.questionTags;
+
+        this.questionService.postQuestion(questionToAdd).subscribe(
+            () => {
+                this.toastrService.success(RESPONSE.QUESTION.SUCCESS_POST);
+                this.form.reset();
+            },
+            () => {
+                this.toastrService.error(RESPONSE.ERROR);
+            },
+        );
     }
 
     private findTag() {

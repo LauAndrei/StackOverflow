@@ -1,5 +1,5 @@
 import { IAnswer } from './answer';
-import { TagReduced } from './tag';
+import { TagDto, TagReduced } from './tag';
 
 export interface IQuestion {
     id: number;
@@ -21,4 +21,17 @@ export interface IQuestionDetails {
     answers: IAnswer[];
     tags: TagReduced[];
     score: number;
+}
+
+export interface IPostQuestion {
+    id: number;
+    title: string;
+    text: string;
+    pictureUrl: string;
+    tags: TagDto[];
+}
+
+export interface IFilteredQuestions {
+    questions: IQuestion[];
+    totalNumberOfQuestions: number;
 }

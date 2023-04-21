@@ -1,4 +1,5 @@
 ﻿using Core.Dtos.QuestionDtos;
+using Core.EntityExtensions.QueryExtensions;
 using Core.EntityExtensions.QuestionExtensions;
 using Core.Exceptions;
 using Core.Interfaces.RepositoryInterfaces;
@@ -50,14 +51,13 @@ public class QuestionService : IQuestionService
     }
 
     //TODO: Fix a bug - tags need to be removed before updating and change approach
-    public async Task<bool> UpdateQuestion(PostQuestionDto question)
+    public async Task<bool> UpdateQuestion(PostQuestionDto updatedQuestion)
     {
         var existingQuestion = await _unitOfWork.QuestionRepository.GetAll()
-                                    .AsNoTracking()
                                     .Include(q => q.Answers)
                                     .Include(q => q.Votes)
                                     .Include(q => q.Tags)
-                                    .Where(q => q.Id == question.Id)
+                                    .Where(q => q.Id == updatedQuestion.Id)
                                     .FirstOrDefaultAsync();
 
         if (existingQuestion is null)
@@ -65,24 +65,22 @@ public class QuestionService : IQuestionService
             throw new ItemNotFoundException();
         }
 
-        var updatedQuestion = question.ToQuestion(existingQuestion);
+        existingQuestion = updatedQuestion.ToQuestion(existingQuestion);
         
         //_unitOfWork.QuestionTagRepository.RemoveRange(existingQuestion.Tags);
         
-        _unitOfWork.QuestionRepository.Update(updatedQuestion);
+        _unitOfWork.QuestionRepository.Update(existingQuestion);
 
         return await _unitOfWork.SaveChangesAsync();
     }
 
-    public async Task<int> PostQuestion(PostQuestionDto newQuestion, int authorId)
+    public async Task<bool> PostQuestion(PostQuestionDto newQuestion, int authorId)
     {
         var questionToAdd = newQuestion.ToQuestion(authorId);
         
-        var questionAdded = (await _unitOfWork.QuestionRepository.AddAsync(questionToAdd)).Entity;
+        await _unitOfWork.QuestionRepository.AddAsync(questionToAdd);
         
-        await _unitOfWork.SaveChangesAsync();
-
-        return questionAdded.Id;
+        return await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task<bool> DeleteQuestion(int questionId)
@@ -90,5 +88,31 @@ public class QuestionService : IQuestionService
         await _unitOfWork.QuestionRepository.RemoveByIdAsync(questionId);
 
         return await _unitOfWork.SaveChangesAsync();
+    }
+
+    public async Task<FilteredQuestions> GetPaginatedAndFilteredQuestions(QuestionFilters filters, int pageNumber, int pageSize)
+    {
+        var baseQuery = _unitOfWork.QuestionRepository.GetAll()
+            .Include(q => q.Author)
+            .Include(q => q.Tags)!
+            .ThenInclude(t => t.Tag)
+            .WhereIf(q => q.Author!.UserName == filters.AuthorUsername, !string.IsNullOrWhiteSpace(filters.AuthorUsername))
+            .WhereIf(q => q.Title.ToLower().Contains(filters.Title.ToLower()), !string.IsNullOrWhiteSpace(filters.Title))
+            .WhereIf(q => q.Tags!.Any(t => t.Tag.Name.ToLower().Contains(filters.Tag.ToLower())), !string.IsNullOrWhiteSpace(filters.Tag));
+
+        var totalCount = await baseQuery.CountAsync();
+        
+        var paginatedQuery = await baseQuery.OrderByDescending(q => q.DatePosted)
+            .Skip(pageNumber * pageSize)
+            .Take(pageSize)
+            .Select(q => q.ToQuestionDto())
+            .ToListAsync();
+
+        return new FilteredQuestions
+        {
+            Questions = paginatedQuery,
+
+            TotalNumberOfQuestions = totalCount
+        };
     }
 }

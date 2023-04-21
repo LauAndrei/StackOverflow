@@ -39,6 +39,28 @@ namespace API.Controllers
         }
 
         /// <summary>
+        ///     Method tested;
+        ///     Checks if the filter object isn't null and then asynchronously calls the method for filtering from questionService
+        /// </summary>
+        /// <param name="filters">The filter object containing the filters to be applied to a question</param>
+        /// <param name="pageNumber">The current page number</param>
+        /// <param name="pageSize">The number of elements to be displayed on a page</param>
+        /// <returns>A filtered Question object containing the questions and the total number of questions that meet the filters</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        [HttpPost]
+        [Route("FilterQuestions/{pageNumber}")]
+        public async Task<FilteredQuestions> GetPaginatedAndFilteredQuestions(QuestionFilters filters, int pageNumber,
+            int pageSize = 6)
+        {
+            if (filters is null)
+            {
+                throw new ArgumentNullException(nameof(filters));
+            }
+            
+            return await _questionService.GetPaginatedAndFilteredQuestions(filters, pageNumber, pageSize);
+        }
+
+        /// <summary>
         ///     Method Tested;
         ///     Asynchronously calls the getQuestionFullInfo method from IQuestionService
         /// </summary>
@@ -62,12 +84,12 @@ namespace API.Controllers
         ///     The question dto object containing the details of the question-to-be-added
         /// </param>
         /// <returns>
-        ///     The id of the newly created question
+        ///     A boolean indicating if the operation was successful or not 
         /// </returns>
         /// <exception cref="ArgumentNullException"></exception>
         [HttpPost]
         [Route("PostQuestion")]
-        public async Task<int> PostQuestion(PostQuestionDto newQuestion)
+        public async Task<bool> PostQuestion(PostQuestionDto newQuestion)
         {
             if (newQuestion is null)
             {

@@ -49,7 +49,7 @@ public static class QuestionExtensions
         {
             Id = postQuestionDto.Id,
             Title = postQuestionDto.Title,
-            Slug = postQuestionDto.Title.Length > 60 ? postQuestionDto.Title.Substring(0, 60).Replace(' ', '-').ToLower() : postQuestionDto.Title.Replace(' ', '-').ToLower(),
+            Slug = CreateSlug(postQuestionDto.Title),
             Text = postQuestionDto.Text,
             AuthorId = authorId,
             PictureUrl = postQuestionDto.PictureUrl,
@@ -65,6 +65,7 @@ public static class QuestionExtensions
         {
             Id = oldQuestion.Id,
             Title = updatedQuestionDto.Title,
+            Slug = CreateSlug(updatedQuestionDto.Title),
             Text = updatedQuestionDto.Text,
             AuthorId = oldQuestion.AuthorId,
             PictureUrl = updatedQuestionDto.PictureUrl,
@@ -75,5 +76,12 @@ public static class QuestionExtensions
             Votes = oldQuestion.Votes,
             Score = oldQuestion.Score
         };
+    }
+
+    private static string CreateSlug(string title)
+    {
+        return title.Length > 60
+            ? title.Substring(0, 60).Replace(' ', '-').ToLower()
+            : title.Replace(' ', '-').ToLower();
     }
 }

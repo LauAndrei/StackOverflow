@@ -1,5 +1,4 @@
 ﻿using Core.Dtos.QuestionDtos;
-using Core.Entities;
 
 namespace Core.Interfaces.ServiceInterfaces;
 
@@ -11,9 +10,12 @@ public interface IQuestionService
 
     public Task<QuestionExpandedDto> GetQuestionFullInfo(int id);
 
-    public Task<int> PostQuestion(PostQuestionDto newQuestion, int authorId);
+    public Task<bool> PostQuestion(PostQuestionDto newQuestion, int authorId);
 
     public Task<bool> UpdateQuestion(PostQuestionDto question);
 
     public Task<bool> DeleteQuestion(int questionId);
+
+    public Task<FilteredQuestions> GetPaginatedAndFilteredQuestions(QuestionFilters filters, int pageNumber,
+        int pageSize);
 }

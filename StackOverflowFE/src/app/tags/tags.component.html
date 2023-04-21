@@ -1,1 +1,19 @@
-<p>tags works!</p>
+<div class="container">
+	<h1 class="title">Tags</h1>
+
+	<p class="description">
+		A tag is a keyword or label that categorizes your question with other, similar questions.
+		Using the right tags
+		makes it easier for others to find and answer your question.
+	</p>
+
+	<div class="tags__container">
+		<button
+				disabled
+				class="tag"
+				*ngFor="let tag of this.tags"
+		>
+			#{{ tag.name }}
+		</button>
+	</div>
+</div>

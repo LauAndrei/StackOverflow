@@ -1,0 +1,28 @@
+.container {
+    margin: auto;
+
+    .description {
+        width: 50%;
+        margin-top: 10px;
+    }
+
+    .tags__container {
+        width: 50%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+
+        .tag {
+            margin-top: 10px;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin-right: 15px;
+            outline: none;
+            border: none;
+            background-color: #fee6d0;
+            color: #f2740d;
+            font-size: 16px;
+        }
+    }
+}
