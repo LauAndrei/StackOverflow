@@ -1,0 +1,26 @@
+<div *ngIf="currentUser$ | async as currentUser" class="dashboard__container">
+	<div>
+		<img src="assets/avatar_profile_icon.png">
+	</div>
+
+	<div class="user__info">
+		<h2>{{currentUser.userName}}</h2>
+		<h2>Score: {{currentUser.score}}</h2>
+	</div>
+
+	<div class="menu">
+		<ul>
+			<div class="menu__item">
+				<li routerLink="questions-asked" routerLinkActive="active">
+					<span>Questions Asked</span>
+				</li>
+			</div>
+
+			<div class="menu__item">
+				<li class="logout">
+					<span (click)="logOut()">Log Out</span>
+				</li>
+			</div>
+		</ul>
+	</div>
+</div>

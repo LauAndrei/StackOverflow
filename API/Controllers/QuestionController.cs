@@ -38,6 +38,20 @@ namespace API.Controllers
             return await _questionService.GetAllQuestions();
         }
 
+        [HttpGet]
+        [Route("GetLoggedInUsersQuestions")]
+        public async Task<ActionResult<List<QuestionDto>>> GetLoggedInUsersQuestions()
+        {
+            var loggedInUser = HttpContext.User.Identity.Name;
+
+            if (loggedInUser is null)
+            {
+                return Unauthorized();
+            }
+
+            return await _questionService.GetUsersQuestion(loggedInUser);
+        }
+
         /// <summary>
         ///     Method tested;
         ///     Checks if the filter object isn't null and then asynchronously calls the method for filtering from questionService

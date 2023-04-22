@@ -115,4 +115,14 @@ public class QuestionService : IQuestionService
             TotalNumberOfQuestions = totalCount
         };
     }
+
+    public async Task<List<QuestionDto>> GetUsersQuestion(string username)
+    {
+        return await _unitOfWork.QuestionRepository
+            .GetAll()
+            .Include(q => q.Author)
+            .Where(q => q.Author.UserName == username)
+            .Select(q => q.ToQuestionDto())
+            .ToListAsync();
+    }
 }

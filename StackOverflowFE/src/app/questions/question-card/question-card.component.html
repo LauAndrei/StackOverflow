@@ -1,19 +1,19 @@
 <div class="question__container">
-    <h6 class="author">
-        <span>{{ question.authorUsername }}</span> asked:
-    </h6>
-    <a routerLink="{{ question.id }}/{{ question.slug }}">
-        {{ question.title }}
-    </a>
-    <p>{{ question.text }}</p>
-    <div class="date__container">
-        <small>
-            Posted: {{ question.creationDate | date : 'd MMM y, hh:mm a' }}
-        </small>
+	<h6 class="author" *ngIf="isMain">
+		<span>{{ question.authorUsername }}</span> asked:
+	</h6>
+	<a routerLink="/questions/{{ question.id }}/{{ question.slug }}">
+		{{ question.title }}
+	</a>
+	<p>{{ question.text }}</p>
+	<div class="date__container">
+		<small>
+			Posted: {{ question.creationDate | date : 'd MMM y, hh:mm a' }}
+		</small>
 
-        <small *ngIf="question.lastModifiedDate">
-            Modified:
-            {{ question.lastModifiedDate | date : 'd MMM y, hh:mm a' }}
-        </small>
-    </div>
+		<small *ngIf="question.lastModifiedDate">
+			Modified:
+			{{ question.lastModifiedDate | date : 'd MMM y, hh:mm a' }}
+		</small>
+	</div>
 </div>

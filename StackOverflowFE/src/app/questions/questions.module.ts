@@ -24,5 +24,6 @@ import { PostQuestionComponent } from './post-question/post-question.component';
         QuestionsRoutingModule,
         FormsModule,
     ],
+    exports: [QuestionCardComponent],
 })
 export class QuestionsModule {}

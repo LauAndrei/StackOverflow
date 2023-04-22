@@ -1,0 +1,7 @@
+<div>
+	<h1 *ngIf="questionCards.length == 0">You haven't asked any questions yet!</h1>
+
+	<div *ngFor="let question of questionCards" class="question__container">
+		<app-question-card [question]="question" [isMain]="false"></app-question-card>
+	</div>
+</div>

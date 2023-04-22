@@ -18,4 +18,6 @@ public interface IQuestionService
 
     public Task<FilteredQuestions> GetPaginatedAndFilteredQuestions(QuestionFilters filters, int pageNumber,
         int pageSize);
+
+    public Task<List<QuestionDto>> GetUsersQuestion(string username);
 }

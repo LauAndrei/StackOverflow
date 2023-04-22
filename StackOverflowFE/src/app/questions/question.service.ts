@@ -1,17 +1,17 @@
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {environment} from 'src/environments/environment';
-import {ENDPOINTS_MAP} from '../shared/constants/endpoints-config';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { ENDPOINTS_MAP } from '../shared/constants/endpoints-config';
 import {
     IFilteredQuestions,
     IPostQuestion,
     IQuestion,
     IQuestionDetails,
 } from '../shared/models/question';
-import {IAnswer, IPostAnswer} from '../shared/models/answer';
-import {IQuestionFilters} from '../shared/models/filters';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import { IAnswer, IPostAnswer } from '../shared/models/answer';
+import { IQuestionFilters } from '../shared/models/filters';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root',
@@ -21,13 +21,19 @@ export class QuestionService {
         private http: HttpClient,
         private router: Router,
         private activatedRoute: ActivatedRoute,
-    ) {
-    }
+    ) {}
 
     //for testing purposes only
     getAllQuestions() {
         return this.http.get<IQuestion[]>(
             environment.apiUrl + ENDPOINTS_MAP.QUESTIONS.GET_ALL_QUESTIONS,
+        );
+    }
+
+    getUsersQuestions(): Observable<IQuestion[]> {
+        return this.http.get<IQuestion[]>(
+            environment.apiUrl +
+                ENDPOINTS_MAP.QUESTIONS.GET_LOGGED_IN_USERS_QUESTIONS,
         );
     }
 
@@ -56,8 +62,8 @@ export class QuestionService {
 
         return this.http.post<IFilteredQuestions>(
             environment.apiUrl +
-            ENDPOINTS_MAP.QUESTIONS.FILTER_QUESTIONS +
-            (pageNumber - 1),
+                ENDPOINTS_MAP.QUESTIONS.FILTER_QUESTIONS +
+                (pageNumber - 1),
             filters,
         );
     }
@@ -65,8 +71,8 @@ export class QuestionService {
     getQuestionDetails(id: number): Observable<IQuestionDetails> {
         return this.http.get<IQuestionDetails>(
             environment.apiUrl +
-            ENDPOINTS_MAP.QUESTIONS.GET_QUESTION_DETAILS +
-            id,
+                ENDPOINTS_MAP.QUESTIONS.GET_QUESTION_DETAILS +
+                id,
         );
     }
 

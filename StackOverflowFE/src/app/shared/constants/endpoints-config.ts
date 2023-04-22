@@ -11,6 +11,7 @@ export const ENDPOINTS_MAP = {
         GET_QUESTION_DETAILS: 'question/getQuestionDetails/',
         POST_QUESTION: 'question/postQuestion',
         FILTER_QUESTIONS: 'question/filterQuestions/',
+        GET_LOGGED_IN_USERS_QUESTIONS: 'question/getLoggedInUsersQuestions',
     },
 
     ANSWERS: {

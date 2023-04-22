@@ -8,4 +8,6 @@ import { IQuestion } from 'src/app/shared/models/question';
 })
 export class QuestionCardComponent {
     @Input() question: IQuestion;
+
+    @Input() isMain: boolean = true;
 }
